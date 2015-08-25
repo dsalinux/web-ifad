@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    
+<!--        Configuracoes Softop -->
+<!--        <property name="hibernate.connection.url">jdbc:mysql://localhost/ccjp_emissor_boletim</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Danilo1425</property>-->
+    
+        <!--Configuracoes IFNMG-->
+<!--        <property name="hibernate.connection.url">jdbc:mysql://localhost/ifad</property>
+        <property name="hibernate.connection.username">ifad</property>
+        <property name="hibernate.connection.password">pifad1312</property>-->
+    
+<!--        Configuracoes Developement -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+    
+        <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.show_sql">false</property>
+        
+<!--            <property name="hibernate.cache.use_query_cache">true</property>
+            <property name="hibernate.cache.use_second_level_cache">false</property>-->
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.connection.provider_class">
+            org.hibernate.connection.C3P0ConnectionProvider
+        </property>
+        <property name="hibernate.c3p0.min_size">0</property>
+        <property name="hibernate.c3p0.max_size">100</property>
+        <property name="hibernate.c3p0.timeout">60</property>
+        <property name="hibernate.c3p0.idle_test_period">100</property>
+
+        <mapping class="br.edu.ifnmg.ifad.entity.Usuario"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Senha"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Respostas"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Configuracao"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Foto"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Professor"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Questao"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Questionario"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Turma"/>
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_cpf_senha" columnCount="3" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb8f51a4-d46b-4c7a-a194-ab60ceaae24e">
+	<property name="ireport.zoom" value="2.357947691000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="COD_TURMA" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     senha.`id` AS aluno_id,
+     senha.`senha` AS aluno_senha,
+     senha.`turma_id` AS aluno_turma_id,
+     turma.`id` AS turma_id,
+     turma.`nome` AS turma_nome,
+     turma.`curso` AS turma_curso
+FROM
+     `turma` turma INNER JOIN `senha` senha ON turma.`id` = senha.`turma_id`
+where senha.turma_id = $P{COD_TURMA}]]>
+	</queryString>
+	<field name="aluno_id" class="java.lang.Integer"/>
+	<field name="aluno_senha" class="java.lang.String"/>
+	<field name="aluno_turma_id" class="java.lang.Integer"/>
+	<field name="turma_id" class="java.lang.Integer"/>
+	<field name="turma_nome" class="java.lang.String"/>
+	<field name="turma_curso" class="java.lang.String"/>
+	<group name="Turmas">
+		<groupExpression><![CDATA[$F{turma_id}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<textField>
+					<reportElement x="3" y="0" width="552" height="20" uuid="abf1aa62-0c7c-4eee-9d33-29ac6b209ced"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{turma_nome}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="49">
+				<break>
+					<reportElement x="0" y="26" width="100" height="1" uuid="0b3ccfbf-9e5e-45e5-b725-46099ccb5d39">
+						<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==($V{PAGE_COUNT}-1)]]></printWhenExpression>
+					</reportElement>
+				</break>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="25" width="179" height="29" uuid="b83f842d-226f-4e47-9dd1-442bf7402040"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aluno_senha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="3" width="179" height="22" uuid="20c95d3e-5cc7-4ffe-b68e-55f73f299d3b"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Senha:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

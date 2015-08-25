@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <ui:param name="managed" value="#{configuracaoBean}"/>
+    <h:body>
+        <h:form id="frm">
+            <p:spacer height="20px"></p:spacer>
+            <h:panelGrid columns="1">
+                <h:outputLabel value="Questionário atual:"></h:outputLabel>
+                <h:panelGrid columns="2">
+                    <p:selectOneMenu value="#{managed.entity.questionario}">
+                        <f:selectItem itemValue="null" itemLabel="Nenhum"></f:selectItem>
+                        <f:selectItems value="#{managed.questionarios}" var="t" itemValue="#{t}" itemLabel="#{t.descricao}"></f:selectItems>
+                        <p:ajax event="change" process="@this" listener="#{managed.salvar()}"></p:ajax>
+                    </p:selectOneMenu>
+                    <p:button icon="ui-icon-pencil" href="gerenciar-questionario.jsf"></p:button>
+                </h:panelGrid>
+                <h:outputLabel for="inpdatainicio" value="Data Início:"></h:outputLabel>
+                <p:calendar id="inpdatainicio" value="#{managed.entity.dataInicio}">
+                    <p:ajax event="dateSelect" process="@this" listener="#{managed.salvar()}"></p:ajax>
+                </p:calendar>
+                <h:outputLabel for="inpdatafim" value="Data Fim:"></h:outputLabel>
+                <p:calendar id="inpdatafim" value="#{managed.entity.dataFim}">
+                    <p:ajax event="dateSelect" process="@this" listener="#{managed.salvar()}"></p:ajax>
+                </p:calendar>
+                <h:outputLabel for="chkbloqueado" value="Bloquear:"></h:outputLabel>
+                <p:selectBooleanButton onLabel="Sim" offLabel="Não" value="#{managed.entity.bloqueado}">
+                    <p:ajax event="change" process="@this" listener="#{managed.salvar()}"></p:ajax>
+                </p:selectBooleanButton>
+                <p:spacer height="30px"></p:spacer>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</ui:decorate>

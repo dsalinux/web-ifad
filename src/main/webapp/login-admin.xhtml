@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             template="template-login.xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:param name="titulo" value="Entre com os dados para acessar o sistema!"></ui:param>
+    <h:form id="frm">
+        <h:graphicImage library="imagens" name="load.gif" style="float: right; height: 64px; margin-left: 20px; margin-top: 30px;" rendered="#{contextView.login != null and !contextView.login.alterarSenha}"></h:graphicImage>
+        <h:panelGrid columns="1" style="text-align: left; width: 100%; text-align: center" rendered="#{contextView.login == null}">
+            <h:outputLabel value="Email"/>
+            <p:inputText id="email" value="#{loginView.email}"></p:inputText>
+            <h:outputLabel value="Senha"/>
+            <p:password value="#{loginView.senha}" id="password"></p:password>
+            <p:commandButton value="Acessar" ajax="false" style="width: 175px;" actionListener="#{loginView.logar()}" update="frm" oncomplete="#{loginView.pronto?'loginredirect()':''}"></p:commandButton>
+        </h:panelGrid>
+        <h:panelGrid columns="1" style="text-align: left; width: 100%; text-align: center" rendered="#{contextView.login != null and contextView.login.alterarSenha}">
+            <h:panelGroup>
+                <h:graphicImage library="imagens" name="login_icon.png"></h:graphicImage>
+                <h:outputText value="Altere a Senha!" style="font-size: 14px;"></h:outputText>
+            </h:panelGroup>
+            <h:outputLabel value="Senha:"/>
+            <p:password value="#{loginView.senha}" id="alterarpassword" feedback="true"></p:password>
+            <h:outputLabel value="Repita a senha:"/>
+            <p:password value="#{loginView.repetirSenha}" id="reppassword"></p:password>
+            <p:commandButton value="Acessar" ajax="false" style="width: 175px;" actionListener="#{loginView.alterarSenha()}" oncomplete="#{loginView.pronto?'loginredirect()':''}" update="frm"></p:commandButton>
+        </h:panelGrid>
+        <p:remoteCommand action="#{loginView.redirecionar()}" name="loginredirect" autoRun="true" rendered="#{loginView.pronto}"/>
+        <h:inputHidden value="#{loginView.url}"></h:inputHidden>
+    </h:form>
+</ui:decorate>
+

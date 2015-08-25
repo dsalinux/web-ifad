@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:if="http://java.sun.com/jsf/composite/if">
+
+    <h:head></h:head>
+
+    <ui:param name="permissaoPorTela" value="GERENCIAR_LOGIN"></ui:param>
+    <h:form id="frm">
+
+        <if:toolbar controller="#{gerenciarUsuarioBean}" icon="glyphicon-user" title="Gerenciar Usuários"/>
+
+        <h:panelGrid columns="1" width="100%" rendered="#{gerenciarUsuarioBean.currentStateName != 'SEARCH'}">
+            <h:outputLabel for="nome" value="Nome:"></h:outputLabel>
+            <p:inputText id="nome" value="#{gerenciarUsuarioBean.entity.nome}" autocomplete="off"></p:inputText>
+            <h:outputLabel for="email" value="Email:"></h:outputLabel>
+            <p:inputText id="login" value="#{gerenciarUsuarioBean.entity.email}" autocomplete="off">
+                <p:ajax event="change" update=":frm:email" process=":frm" listener="#{gerenciarUsuarioBean.aplicarEmailToLogin}" global="false" rendered="#{empty gerenciarUsuarioBean.entity.login}"></p:ajax>
+            </p:inputText>
+            <h:outputLabel for="login" value="Login:"></h:outputLabel>
+            <p:inputText id="email" value="#{gerenciarUsuarioBean.entity.login}" autocomplete="off"></p:inputText>
+            <h:outputLabel for="password" value="Senha:"></h:outputLabel>
+            <p:password id="password" value="#{gerenciarUsuarioBean.senha}" autocomplete="off"></p:password>
+            <h:outputText></h:outputText>
+            <h:panelGroup>
+                <p:selectBooleanCheckbox id="checkAlterar" value="#{gerenciarUsuarioBean.entity.alterarSenha}"></p:selectBooleanCheckbox>
+                <h:outputLabel for="checkAlterar" value="Marque para alterar a Senha no primeiro login"></h:outputLabel>
+            </h:panelGroup>
+            <h:outputLabel for="perfil" value="Perfil de Usuário"></h:outputLabel>
+            <p:selectOneMenu id="perfil" value="#{gerenciarUsuarioBean.entity.permissoes}">
+                <f:selectItem itemLabel="Usuário" itemValue="USER"></f:selectItem>
+                <f:selectItem itemLabel="Administrador" itemValue="ADMIN"></f:selectItem>
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <p:dataTable emptyMessage="Nenhum dado para listar." value="#{gerenciarUsuarioBean.entitys}" id="resultSet" var="entity" rendered="#{gerenciarUsuarioBean.currentStateName == 'SEARCH'}">
+            <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon ui-icon-pencil" actionListener="#{gerenciarUsuarioBean.edit(entity)}" update=":frm"></p:commandLink></p:column>
+            <p:column headerText="Nome" sortBy="#{entity.nome}"><h:outputText value="#{entity.nome}"></h:outputText></p:column>
+            <p:column headerText="Email" sortBy="#{entity.email}"><h:outputText value="#{entity.email}"></h:outputText></p:column>
+        </p:dataTable>
+
+    </h:form>
+</ui:composition>
+

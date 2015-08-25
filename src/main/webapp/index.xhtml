@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="template.xhtml">
+   
+    <h:head>
+        <style>
+        .atalhoRapido {
+            width: 120px; height: 100px; float: left; margin: 5px; padding: 2px;background-position-y: 0!important;
+        }
+        .atalhoRapido span{
+            position: absolute;
+            bottom: 10%!important;
+            padding: 0em 1em 0em 1em!important;
+        }
+        .iconeAtalhoRapido{
+            min-height: 1em;
+            padding-left: 5px;
+            width: 1.5em!important;
+            margin: 0!important;
+            padding: 0!important;
+            background: none!important;
+            top: 15%!important;
+            float: left;
+            text-align: center!important;
+            text-indent: 0;
+            border-radius: 0px!important;
+            font-size: 2.5em!important;
+            left: 0px;
+        }
+        </style>
+    </h:head>
+    <ui:param name="titulo" value="Acesso Rápido"/>
+    <ui:param name="icone" value="glyphicon-th"/>
+    <h:body>
+        <h2>Bem vindo ao IFAD sistema para avaliação de docentes!</h2>
+        <h4>Acesse rapidamente as telas do sistema com os botões abaixo!</h4>
+        <p:separator></p:separator>
+        <h:form>
+            <p:commandButton onclick="document.location.href='gerenciar-turma.jsf';return false;" styleClass="atalhoRapido" icon="iconeAtalhoRapido glyphicon glyphicon-list-alt" value="Gerenciar Turmas"></p:commandButton>
+            <p:commandButton onclick="document.location.href='gerenciar-disciplina.jsf';return false;" styleClass="atalhoRapido" icon="iconeAtalhoRapido glyphicon glyphicon-list" value="Gerenciar Disciplina"></p:commandButton>
+            <p:commandButton onclick="document.location.href='gerenciar-professor.jsf';return false;" styleClass="atalhoRapido" icon="iconeAtalhoRapido glyphicon glyphicon glyphicon-briefcase" value="Gerenciar Professores"></p:commandButton>
+            <p:commandButton onclick="document.location.href='gerenciar-senhas.jsf';return false;" styleClass="atalhoRapido" icon="iconeAtalhoRapido glyphicon glyphicon-tag" value="Gerenciar Senhas"></p:commandButton>
+            <p:commandButton onclick="document.location.href='gerenciar-questoes.jsf';return false;" styleClass="atalhoRapido" icon="iconeAtalhoRapido glyphicon glyphicon-ok" value="Gerenciar Questões"></p:commandButton>
+            <p:commandButton onclick="document.location.href='configuracoes.jsf';return false;" styleClass="atalhoRapido" icon="iconeAtalhoRapido glyphicon glyphicon-wrench" value="Configurações"></p:commandButton>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

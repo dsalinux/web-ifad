@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="controller" shortDescription="Classe responsável por controlar o componente." required="true"></cc:attribute>
+        <cc:attribute name="title" shortDescription="Título para a barra de componentes." required="false"></cc:attribute>
+        <cc:attribute name="icon" shortDescription="Icone para a barra de componentes."  required="false"></cc:attribute>
+        <cc:attribute name="renderedButtonDelete" shortDescription="Define se o botão deletar será renderizado ou não. Defaut true." default="true" required="false"></cc:attribute>
+        <cc:attribute name="idUpdate" shortDescription="Define o componente que será atualizado quando os botões forem clicados. Default frm." default="frm" required="false"></cc:attribute>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:toolbar styleClass="toolbarDefault">
+            <f:facet name="left">
+                <h:panelGroup>
+                    <p:commandButton actionListener="#{cc.attrs.controller.newRegistre}" update=":#{cc.attrs.idUpdate}" value="Novo" icon="ui-icon-document"></p:commandButton>
+                    <p:commandButton actionListener="#{cc.attrs.controller.save}" update=":#{cc.attrs.idUpdate}" value="Salvar" disabled="#{cc.attrs.controller.currentStateName == 'SEARCH'}" icon="ui-icon-disk"></p:commandButton>
+                    <p:commandButton value="Deletar" oncomplete="PF('confirmationDeleteRegistry').show();" icon="ui-icon-trash" rendered="#{cc.attrs.renderedButtonDelete and cc.attrs.controller.currentStateName == 'EDIT'}"></p:commandButton>
+                    <p:confirmDialog appendTo="@(body)" message="Tem certeza que deseja remover?" header="Confirmação" severity="alert" widgetVar="confirmationDeleteRegistry">
+                        <p:commandButton id="confirm" icon="ui-icon-trash" value="Sim" update=":#{cc.attrs.idUpdate}" onclick="PF('confirmationDeleteRegistry').hide()" actionListener="#{cc.attrs.controller.delete}" />
+                        <p:commandButton id="decline" icon="ui-icon-arrowreturnthick-1-w" value="Não" onclick="PF('confirmationDeleteRegistry').hide()" type="button" />   
+                    </p:confirmDialog>  
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:commandButton actionListener="#{cc.attrs.controller.search}" update=":#{cc.attrs.idUpdate}" value="#{cc.attrs.controller.currentStateName == 'SEARCH'? empty cc.attrs.controller.entitys?'Pesquisar':'Atualizar':'Cancelar'}" icon="#{cc.attrs.controller.currentStateName == 'SEARCH'? empty cc.attrs.controller.entitys?'ui-icon-search':'ui-icon-refresh':'ui-icon-arrowreturnthick-1-w'}"></p:commandButton>
+                </h:panelGroup>
+            </f:facet>
+            <f:facet name="right">
+                <h:panelGroup>
+                    <h:panelGroup layout="block" class="ui-widget-header" style="border: 0px; background: none; margin-right: 10px; margin-top: 0.5em;font-size:1.2em"><h:panelGroup class="glyphicon  #{empty cc.attrs.icon?'glyphicon-pushpin':cc.attrs.icon}" style="margin-right: 6px"></h:panelGroup>#{cc.attrs.title}</h:panelGroup>
+                </h:panelGroup>
+            </f:facet>
+        </p:toolbar>
+    </cc:implementation>
+</html>

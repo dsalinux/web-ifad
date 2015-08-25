@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:if="http://java.sun.com/jsf/composite/if">
+    <h:head>
+    </h:head>
+    <ui:param name="managed" value="#{gerenciarAlunoBean}"/>
+    <h:body>
+        <h:form id="frm">
+            <if:toolbar controller="#{managed}" icon="glyphicon-user" title="Gerenciar Alunos"/>
+            <p:spacer height="20px"></p:spacer>
+            <p:button value="Gerar Senhas" onclick="PF('dialogGerarSenha').show(); return;"></p:button>
+            <p:spacer height="20px"></p:spacer>
+            <p:dialog header="Gerar senhas" widgetVar="dialogGerarSenha">
+                <p:panelGrid columns="2">
+                    <h:outputText value="Quantidade senhas:"/>
+                    <p:inputText value="#{gerenciarAlunoBean.quantidadeSenhas}"></p:inputText>
+                    <p:selectBooleanCheckbox value="#{gerenciarAlunoBean.quantidadeTotal}"></p:selectBooleanCheckbox>
+                    <h:outputText value="Gerar total de senhas informadas"/>
+                    <h:outputLabel value="Turma:"></h:outputLabel>
+                    <p:selectOneMenu value="#{managed.turma}">
+                        <f:selectItem itemValue="null" itemLabel="Selecione"></f:selectItem>
+                        <f:selectItems value="#{managed.turmas}" var="t" itemValue="#{t}" itemLabel="#{t.nome}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Gerar" action="#{gerenciarAlunoBean.criarSenhas()}" update="@form"></p:commandButton>
+                </p:panelGrid>
+            </p:dialog>
+            <h:panelGrid columns="1" rendered="#{managed.currentStateName != 'SEARCH'}">
+                <h:outputLabel value="Senha:"></h:outputLabel>
+                <h:panelGrid columns="2">
+                    <p:inputText disabled="true" value="#{managed.entity.senha}" id="senhaAluno"></p:inputText>
+                    <p:commandButton actionListener="#{managed.gerarSenha()}" update="senhaAluno" icon="ui-icon-refresh"></p:commandButton>
+                </h:panelGrid>
+                <h:outputLabel value="Turma:"></h:outputLabel>
+                <p:selectOneMenu value="#{managed.entity.turma}">
+                    <f:selectItem itemValue="null" itemLabel="Selecione"></f:selectItem>
+                    <f:selectItems value="#{managed.turmas}" var="t" itemValue="#{t}" itemLabel="#{t.nome}"></f:selectItems>
+                </p:selectOneMenu>
+                <p:spacer height="30px"></p:spacer>
+            </h:panelGrid>
+            <p:dataTable value="#{managed.entitys}" var="entity" rendered="#{managed.stateSearch}" emptyMessage="Nenhuma informação para listar!">
+                <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon ui-icon-pencil" actionListener="#{managed.edit(entity)}" update=":frm"></p:commandLink></p:column>
+                <p:column headerText="Senha" filterBy="#{entity.senha}">
+                    <h:outputText value="#{entity.senha}"></h:outputText>
+                </p:column>
+                <p:column headerText="Turma" filterBy="#{entity.turma.nome}">
+                    <h:outputText value="#{entity.turma.nome}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

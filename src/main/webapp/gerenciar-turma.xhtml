@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:if="http://java.sun.com/jsf/composite/if"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <ui:param name="titulo" value="Gerenciar Turma"/>
+    <ui:param name="icone" value="glyphicon-user"/>
+    <h:body>
+        <h:form id="frm">
+            <p:spacer height="10px"></p:spacer>
+            <if:toolbar controller="#{gerenciarTurmaBean}" icon="glyphicon-user" title="Gerenciar Turma"/>
+            <h:panelGrid columns="1" rendered="#{gerenciarTurmaBean.currentStateName != 'SEARCH'}">
+                <h:outputLabel value="Nome:"></h:outputLabel>
+                <p:inputText value="#{gerenciarTurmaBean.entity.nome}"></p:inputText>
+                <h:outputLabel value="Curso:"></h:outputLabel>
+                <p:inputText value="#{gerenciarTurmaBean.entity.curso}"></p:inputText>
+                <h:outputLabel value="Professores:"></h:outputLabel>
+                <p:dataList value="#{gerenciarTurmaBean.professoresSelecionados}" var="prof" id="profList">
+                    #{prof.nome}
+                </p:dataList>
+                <p:selectCheckboxMenu value="#{gerenciarTurmaBean.professoresSelecionados}" converter="professorConverter" label="Professores" filter="true" filterMatchMode="startsWith">
+                    <p:ajax event="change" update=":frm:profList"></p:ajax>
+                    <f:selectItems value="#{gerenciarTurmaBean.professores}" var="prof" itemLabel="#{prof.nome}" itemValue="#{prof}"></f:selectItems>
+                </p:selectCheckboxMenu>
+                <p:spacer height="30px"></p:spacer>
+            </h:panelGrid>
+            <p:dataTable value="#{gerenciarTurmaBean.entitys}" var="entity" rendered="#{gerenciarTurmaBean.stateSearch}">
+                <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon ui-icon-pencil" actionListener="#{gerenciarTurmaBean.edit(entity)}" update=":frm"></p:commandLink></p:column>
+                <p:column headerText="Nome" filterBy="#{entity.nome}">
+                    <h:outputText value="#{entity.nome}"></h:outputText>
+                </p:column>
+                <p:column headerText="Curso" filterBy="#{entity.curso}">
+                    <h:outputText value="#{entity.curso}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

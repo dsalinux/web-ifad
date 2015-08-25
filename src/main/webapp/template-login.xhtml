@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Login</title>
+    </h:head>
+    
+    <h:body>
+        <p:dialog modal="true" visible="true" closable="false" draggable="false" resizable="false" header="#{titulo}" height="250" width="500">
+            <h:outputText value="Sua sessão expirou!" style="font-size: 1.5em;color:red;font-weight:bold;float:left;display: block;text-align: center; width: 100%" rendered="#{param.viewExpired == 'true'}"></h:outputText>
+            <p:messages autoUpdate="true" showDetail="true">
+                <p:effect type="pulsate" event="load" speed="200" delay="400">  
+                </p:effect> 
+            </p:messages>
+            <h:panelGrid columns="2" style="width: 100%">
+                <h:graphicImage library="imagens" name="logo-v.png" style="display: block;margin: 0 auto; max-width: 170px; max-height: 160px;"></h:graphicImage>
+                <h:panelGroup>
+                    <ui:insert></ui:insert>
+                </h:panelGroup>
+            </h:panelGrid>
+        </p:dialog>
+    </h:body>
+    
+</html>
+

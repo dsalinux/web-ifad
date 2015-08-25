@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <ui:param name="managed" value="#{emissaoReportsBean}"/>
+    <h:body>
+        <h:form id="frm">
+            <h2>Emissão de Ata para assinatura</h2>
+            <h:panelGrid columns="1">
+                <h:outputLabel value="Turma:"></h:outputLabel>
+                <p:selectOneMenu value="#{managed.turma}">
+                    <f:selectItem itemValue="null" itemLabel="Selecione"></f:selectItem>
+                    <f:selectItems value="#{managed.turmas}" var="t" itemValue="#{t}" itemLabel="#{t.nome}"></f:selectItems>
+                </p:selectOneMenu>
+                <p:commandButton value="Download" ajax="false" icon="ui-icon-print" onclick="PrimeFaces.monitorDownload(startStatus, stopStatus);">
+                    <p:fileDownload value="#{managed.listaFile}"></p:fileDownload>
+                </p:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             template="template-login.xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head></h:head>
+    <meta http-equiv="refresh" content="1810" />
+    <c:set scope="request" var="temaSite" value="delta"></c:set>
+    <ui:param name="titulo" value="Entre com sua Senha de acesso!"></ui:param>
+    <h:body>
+        <h:form id="frm">
+            <h:panelGrid columns="1" style="text-align: left; width: 100%; text-align: center">
+                <h:outputLabel value="Senha:"/>
+                <p:password value="#{loginAlunoBean.senha}" id="password"></p:password>
+                <p:commandButton value="Entrar" ajax="false" icon="ui-icon-key" style="width: 175px;" actionListener="#{loginAlunoBean.logar()}" update="frm" oncomplete="#{loginAlunoBean.logged?'loginredirect()':''}"></p:commandButton>
+                <p:remoteCommand action="#{loginAlunoBean.redirecionarQuestionario()}" name="loginredirect" autoRun="true" rendered="#{loginAlunoBean.logged}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

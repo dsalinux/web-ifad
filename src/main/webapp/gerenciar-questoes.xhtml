@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:if="http://java.sun.com/jsf/composite/if">
+    <h:head>
+         <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+    </h:head>
+    <ui:param name="managed" value="#{gerenciarQuestaoBean}"/>
+    <h:body>
+        <h:form id="frm">
+            <if:toolbar controller="#{managed}" icon="glyphicon-user" title="Gerenciar Alunos"/>
+            <p:spacer height="20px"></p:spacer>
+            <h:panelGrid columns="1" rendered="#{managed.currentStateName != 'SEARCH'}">
+                <h:outputLabel value="Questionário:"></h:outputLabel>
+                <h:panelGrid columns="3">
+                    <p:selectOneMenu value="#{managed.entity.questionario}" id="selectQuestionario">
+                        <f:selectItem itemValue="null" itemLabel="Selecione"></f:selectItem>
+                        <f:selectItems value="#{managed.questionarios}" var="t" itemValue="#{t}" itemLabel="#{t.descricao}"></f:selectItems>
+                        <p:ajax event="change" process="@this" update=":frm"></p:ajax>
+                    </p:selectOneMenu>
+                    <p:button icon="ui-icon-pencil" onclick="PF('gerenciarQuestioarioId').show(); return false;"></p:button>
+                    <p:button icon="ui-icon-refresh">
+                        <p:ajax event="click" update="selectQuestionario"></p:ajax>
+                    </p:button>
+                </h:panelGrid>
+            </h:panelGrid>
+            <h:panelGrid id="pnlQuestao" columns="1" rendered="#{managed.currentStateName != 'SEARCH' and managed.entity.questionario != null}">
+                <p:effect type="bounce" event="onload"></p:effect>
+                <h:outputLabel value="Questão:"></h:outputLabel>
+                <p:inputTextarea value="#{managed.entity.descricao}" autoResize="false" cols="40"></p:inputTextarea>
+                <h:outputLabel value="Dica:"></h:outputLabel>
+                <p:inputText value="#{managed.entity.dica}"></p:inputText>
+                <h:outputLabel value="Tipo Questão:"></h:outputLabel>
+                <p:selectOneMenu value="#{managed.entity.tipo_}">
+                    <f:selectItem itemValue="AVALIACAO1A5" itemLabel="Pontuação (1 a 5)"></f:selectItem>
+                    <f:selectItem itemValue="TEXTO" itemLabel="Texto"></f:selectItem>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <p:dataTable value="#{managed.entitys}" var="entity" rendered="#{managed.stateSearch}" emptyMessage="Nenhuma informação para listar!">
+                <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon ui-icon-pencil" actionListener="#{managed.edit(entity)}" update=":frm"></p:commandLink></p:column>
+                <p:column headerText="Descrição" filterBy="#{entity.descricao}">
+                    <h:outputText value="#{entity.descricao}"></h:outputText>
+                </p:column>
+                <p:column headerText="Questionário" filterBy="#{entity.questionario.descricao}">
+                    <h:outputText value="#{entity.questionario.descricao}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:dialog header="Gerenciar Questionário" width="700px" height="350px" widgetVar="gerenciarQuestioarioId" modal="true" closeOnEscape="true">
+            <ui:include src="gerenciar-questionario.xhtml"></ui:include>
+            <p:ajax event="close" update=":frm:selectQuestionario"/>
+        </p:dialog>
+    </h:body>
+</ui:decorate>

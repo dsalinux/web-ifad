@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="./resources/css/glyphicon.css"/>
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js" />
+        <title>Resposta Questionário</title>
+        <style>
+            .confirmed {background: #7aba7b}
+        </style>
+    </h:head>
+    <ui:param name="temaSite" value="aristo"></ui:param>
+    <h:body style="margin: 20px">
+        <h:form id="frm">
+             <p:growl autoUpdate="true" globalOnly="true" life="6000" escape="false" showDetail="true"></p:growl>
+            <h:panelGroup rendered="#{!configuracaoBean.ativo}" layout="block" style="position: fixed; height: 250px; width: 450px; top: 50%; left: 50%; margin-top: -145px; margin-left: -225px;text-align: center; font-size: 2em;">
+                        <h:graphicImage value="resources/imagens/logo-h.png" height="150px"></h:graphicImage>
+                        <p:spacer width="100%" height="10px"></p:spacer>
+                        <h:outputText style="width: 100%" value="Desculpe, mas o questionário ainda não está disponível!"></h:outputText>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{configuracaoBean.ativo and !loginAlunoBean.logged}">
+                #{loginAlunoBean.redirecionarNaoLogado()}
+            </h:panelGroup>
+            <h:panelGroup rendered="#{configuracaoBean.ativo and loginAlunoBean.logged}">
+                    <h:panelGrid columns="2" width="100%">
+                        <h:graphicImage value="resources/imagens/logo-h.png" width="200px"></h:graphicImage>
+                        <h:panelGrid columns="1" style="float: right">
+                            <h:panelGroup style="float: right">
+                                <span  class="glyphicon glyphicon-user">&nbsp;</span>
+                                <h:outputLink style="float: right; margin-left: 10px;" value="logout-aluno.jsf">
+                                    <h:outputText value="Sair"></h:outputText>
+                                </h:outputLink>
+                                <h:outputText style="float: right" value="Bem vindo"></h:outputText>
+                            </h:panelGroup>
+                            <p:spacer height="40px"></p:spacer>
+                            <h:panelGroup style="font-size: 2em;float: right">
+                                <span  class="glyphicon glyphicon-thumbs-up">&nbsp;</span>
+                                <h:outputText style="float: right" value="Você está avaliando: Professor #{questionarioBean.professorAtual.nome}"></h:outputText>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:separator></p:separator>
+                    <p:messages autoUpdate="true" showDetail="true" escape="false">
+                        <p:effect type="pulsate" event="load" speed="200" delay="400">  
+                            <f:param name="mode" value="'show'" />  
+                        </p:effect> 
+                    </p:messages>
+                    <h:panelGrid columns="2" width="100%">
+                        <h:outputText   style="font-size: 1.5em;" value="Avalie o professor de acordo com o questionário:"></h:outputText>
+                        <h:panelGroup style="float: right; height: 20px">
+                            <h:outputText value="Progresso:" style="line-height: 18px; margin-right: 10px;"></h:outputText>
+                            <p:progressBar value="#{questionarioBean.porcentagemRestante}" id="progressoBar" style="width: 300px; float: right" labelTemplate="#{questionarioBean.porcentagemRestante}%"></p:progressBar>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <p:separator></p:separator>
+                    <p:spacer height="30px" width="100%"></p:spacer>
+                    <!--rowStyleClass="#{not empty ahq.resposta?'confirmed':''}"-->
+                    <p:dataTable rowIndexVar="indiceLinha" value="#{questionarioBean.listaAlunoHasQuestaoByProfessor}" id="resultSet" var="ahq" >
+                        <p:column width="24"><h:outputText value="#{indiceLinha+1}"></h:outputText></p:column>
+                        <p:column headerText="Responda conforme sua avaliação. Onde 0 totalmente inssatisfeito e 5 totalmente satisfeito." width="50%">
+                            <h:outputText value="#{ahq.questao.descricao}" style=""></h:outputText>
+                        </p:column>
+                        <p:column headerText="Marque:" width="300">
+                            <p:selectOneRadio value="#{ahq.resposta}" id="customRadio" layout="grid" columns="6">
+                                <f:selectItem itemLabel="0" itemValue="0" />
+                                <f:selectItem itemLabel="1" itemValue="1" />
+                                <f:selectItem itemLabel="2" itemValue="2" />
+                                <f:selectItem itemLabel="3" itemValue="3" />
+                                <f:selectItem itemLabel="4" itemValue="4" />
+                                <f:selectItem itemLabel="5" itemValue="5" />
+                                <!--<p:ajax listener="#{questionarioBean.marcarResposta(ahq)}" global="false" update="@this, :frm:progressoBar" process="@form" onstart="$(loadsnake#{indiceLinha}).show();$(actionok#{indiceLinha}).hide();PF('buibotoes').show();" oncomplete="$(loadsnake#{indiceLinha}).hide();PF('buibotoes').hide();" onsuccess="$(actionok#{indiceLinha}).show();"></p:ajax>-->
+                            </p:selectOneRadio>
+                            <!--<p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="0"></p:radioButton>-->
+                        </p:column>
+<!--                        <p:column headerText="1"><p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="1"></p:radioButton></p:column>
+                        <p:column headerText="2"><p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="2"></p:radioButton></p:column>
+                        <p:column headerText="3"><p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="3"></p:radioButton></p:column>
+                        <p:column headerText="4"><p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="4"></p:radioButton></p:column>
+                        <p:column headerText="5"><p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="5"></p:radioButton></p:column>-->
+                        <p:column width="24">
+                            <img src="resources/imagens/loadsnake.gif" id="loadsnake#{indiceLinha}" style="display: none"></img>
+                            <img src="resources/imagens/okaction.gif" id="actionok#{indiceLinha}" style="#{not empty ahq.resposta?'':'display: none'}"></img>
+                        </p:column>
+                    </p:dataTable>
+                    <p:spacer height="30px"></p:spacer>
+                    <p:separator></p:separator>
+                    <p:blockUI block="botoesDirecao" widgetVar="buibotoes"/>
+                    <p:panel id="botoesDirecao" >
+                        <center>
+                            <p:commandButton value="Anterior" update=":frm" actionListener="#{questionarioBean.previousProfessor()}" rendered="#{questionarioBean.hasPreviousProfessor()}" icon="ui-icon-arrowthick-1-w"></p:commandButton>
+                            <p:commandButton value="#{questionarioBean.hasNextProfessor()?'Próximo':'Finalizar'}" ajax="false" actionListener="#{questionarioBean.nextProfessor()}" onclick="PF('dialogAjax').show()" icon="ui-icon-arrowthick-1-e"></p:commandButton>
+                        </center>
+                    </p:panel>
+                    <h:panelGroup >
+                    </h:panelGroup>
+                    <p:fieldset style=" margin-top: 5px; background-position: 50%">
+                        <div>
+                            <span style="float: left">Instituto Federal de Ciência e Tecnologia do Norte de Minas Gerais - IFAD - Versão #{contextView.version}</span>
+                        </div>
+                        <div style="float: right; line-height: 20px;">
+                            <span style="float: left">Desenvolvido por:</span>
+                            <a href="http:\\www.professordanilo.com.br" target="_blank">Danilo Souza</a>
+                        </div>
+                    </p:fieldset>
+            </h:panelGroup>
+        </h:form>
+        <p:dialog appendTo="@(body)" height="60" width="220" widgetVar="dialogAjax" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <h:panelGrid columns="2" columnClasses="columnEsquerda, columnDireita">
+                <h:graphicImage value="./resources/imagens/load.gif" style="width: 48px; margin-right: 10px;"/>
+                <h:outputText style="float: right; vertical-align: middle; font-weight: bold; border: none; background: none;-moz-box-shadow: inset 0px 0px 0px #fff;-webkit-box-shadow: inset 0px 0px 0px white;box-shadow: inset 0px 0px 0px white;" styleClass="ui-state-default" value="Processando!"></h:outputText>
+            </h:panelGrid>
+        </p:dialog>
+        <p:ajaxStatus onstart="PF('dialogAjax').show()" oncomplete="PF('dialogAjax').hide()" onerror="PF('dialogAjax').hide(); showError" onsuccess="PF('dialogAjax').hide()" id="ajaxStatusPanel">  
+        </p:ajaxStatus>
+
+    </h:body>
+    
+</html>
+

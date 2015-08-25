@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:if="http://java.sun.com/jsf/composite/if"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    </h:head>
+    <ui:param name="managed" value="#{gerenciarQuestionarioBean}"/>
+    <h:body>
+        <h:form id="frmQuestionario">
+            <if:toolbar controller="#{managed}" icon="glyphicon-user" title="Gerenciar Questionário" idUpdate="frmQuestionario"/>
+            <p:spacer height="20px"></p:spacer>
+            <h:panelGrid columns="1" rendered="#{managed.currentStateName != 'SEARCH'}">
+                <h:outputLabel for="inpdesc" value="Descrição:"></h:outputLabel>
+                <p:inputText id="inpdesc" size="40" value="#{managed.entity.descricao}"></p:inputText>
+            </h:panelGrid>
+            <p:dataTable value="#{managed.entitys}" var="entity" rendered="#{managed.stateSearch}" emptyMessage="Nenhuma informação para listar!">
+                <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon ui-icon-pencil" actionListener="#{managed.edit(entity)}" update=":frmQuestionario"></p:commandLink></p:column>
+                <p:column headerText="Nome" filterBy="#{entity.descricao}">
+                    <h:outputText value="#{entity.descricao}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
