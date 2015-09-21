@@ -39,6 +39,10 @@
         <p:ajaxStatus onstart="PF('dialogAjax').show()" oncomplete="PF('dialogAjax').hide()" onerror="PF('dialogAjax').hide(); showError" onsuccess="PF('dialogAjax').hide()" id="ajaxStatusPanel">  
         </p:ajaxStatus>
         <h:form id="frmTemp">
+            <p:confirmDialog appendTo="@(body)" global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton id="confirm" icon="ui-icon-trash" styleClass="ui-confirmdialog-yes" value="Sim" type="button"/>
+                <p:commandButton id="decline" icon="ui-icon-arrowreturnthick-1-w" styleClass="ui-confirmdialog-no" value="Não" type="button" />   
+            </p:confirmDialog>
             <p:growl autoUpdate="true" globalOnly="true" life="6000" escape="false" showDetail="true"></p:growl>
             <p:dialog header="Alterar senha" widgetVar="changepassid">
                 <h:panelGrid columns="2" columnClasses="colunaRight,colunaLeft">

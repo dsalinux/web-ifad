@@ -22,11 +22,10 @@
                 <h:panelGroup>
                     <p:commandButton actionListener="#{cc.attrs.controller.newRegistre}" update=":#{cc.attrs.idUpdate}" value="Novo" icon="ui-icon-document"></p:commandButton>
                     <p:commandButton actionListener="#{cc.attrs.controller.save}" update=":#{cc.attrs.idUpdate}" value="Salvar" disabled="#{cc.attrs.controller.currentStateName == 'SEARCH'}" icon="ui-icon-disk"></p:commandButton>
-                    <p:commandButton value="Deletar" oncomplete="PF('confirmationDeleteRegistry').show();" icon="ui-icon-trash" rendered="#{cc.attrs.renderedButtonDelete and cc.attrs.controller.currentStateName == 'EDIT'}"></p:commandButton>
-                    <p:confirmDialog appendTo="@(body)" message="Tem certeza que deseja remover?" header="Confirmação" severity="alert" widgetVar="confirmationDeleteRegistry">
-                        <p:commandButton id="confirm" icon="ui-icon-trash" value="Sim" update=":#{cc.attrs.idUpdate}" onclick="PF('confirmationDeleteRegistry').hide()" actionListener="#{cc.attrs.controller.delete}" />
-                        <p:commandButton id="decline" icon="ui-icon-arrowreturnthick-1-w" value="Não" onclick="PF('confirmationDeleteRegistry').hide()" type="button" />   
-                    </p:confirmDialog>  
+                    <p:commandButton value="Deletar" oncomplete="PF('confirmationDeleteRegistry').show();" icon="ui-icon-trash" rendered="#{cc.attrs.renderedButtonDelete and cc.attrs.controller.currentStateName == 'EDIT'}"  update=":#{cc.attrs.idUpdate}"  actionListener="#{cc.attrs.controller.delete}">
+                        <p:confirm header="Confirmação" message="Tem certeza que deseja remover?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
