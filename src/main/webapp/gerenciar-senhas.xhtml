@@ -51,6 +51,7 @@
                 <p:column headerText="Turma" filterBy="#{entity.turma.nome}">
                     <h:outputText value="#{entity.turma.nome}"></h:outputText>
                 </p:column>
+                <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon #{entity.dataFinalizacaoResposta == null?'ui-icon-circle-check':'ui-icon-circle-close'}" action="#{managed.desbloquear(entity)}" update="@form"></p:commandLink></p:column>
             </p:dataTable>
         </h:form>
     </h:body>

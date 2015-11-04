@@ -1,7 +1,7 @@
 package br.edu.ifnmg.ifad.view;
 
 import br.edu.ifnmg.ifad.entity.Senha;
-import br.edu.ifnmg.ifad.entity.Respostas;
+import br.edu.ifnmg.ifad.entity.Resposta;
 import br.edu.ifnmg.ifad.entity.Professor;
 import br.edu.ifnmg.ifad.entity.Questao;
 import br.edu.ifnmg.ifad.entity.Questionario;
@@ -32,7 +32,7 @@ public class QuestionarioBean extends AbstractManager {
     private List<Questao> questoes = new ArrayList<Questao>();
     private List<Professor> professores = new ArrayList<Professor>();
     private int indexProfessorAtual = 0;
-    private List<Respostas> listaAlunoHasQuestoes = new ArrayList<Respostas>();
+    private List<Resposta> listaAlunoHasQuestoes = new ArrayList<Resposta>();
     private Senha aluno;
     
     @ManagedProperty(value = "#{configuracaoBean}")
@@ -60,13 +60,11 @@ public class QuestionarioBean extends AbstractManager {
                     criteriaProfessor.addOrder(Order.asc("nome"));
                     professores = criteriaProfessor.list();
                     Logger.getLogger(QuestionarioBean.class.getName()).log(Level.WARNING, "Listou {0} Professores()!", professores.size());
-                    if(!Hibernate.isInitialized(aluno.getRespostas())){
-                        Hibernate.initialize(aluno.getRespostas());
-                    }
+                    Hibernate.initialize(aluno.getRespostas());
                     listaAlunoHasQuestoes.addAll(aluno.getRespostas());
                     for (Professor professor : professores) {
                         for (Questao questao : questoes) {
-                            Respostas alunoHasQuestao = new Respostas();
+                            Resposta alunoHasQuestao = new Resposta();
                             alunoHasQuestao.setSenha(aluno);
                             alunoHasQuestao.setProfessor(professor);
                             alunoHasQuestao.setQuestao(questao);
@@ -98,7 +96,7 @@ public class QuestionarioBean extends AbstractManager {
 //        lista.add("Ética: demostra comportamento compatível quanto ao sigilo, discrição, moralidade, integridade, educação, cortesia.");
     
     public void retornarQuestionarioUltimaResposta(){
-        for (Respostas alunoHasQuestao : listaAlunoHasQuestoes) {
+        for (Resposta alunoHasQuestao : listaAlunoHasQuestoes) {
             if(StringHelper.isEmpty(alunoHasQuestao.getResposta()) && professores.contains(alunoHasQuestao.getProfessor())){
                 indexProfessorAtual = professores.indexOf(alunoHasQuestao.getProfessor());
                 break;
@@ -112,7 +110,7 @@ public class QuestionarioBean extends AbstractManager {
                 
                 @Override
                 public void execute(Session s) throws BusinessException {
-                    for (Respostas alunoHasQuestao : getListaAlunoHasQuestaoByProfessor()) {
+                    for (Resposta alunoHasQuestao : getListaAlunoHasQuestaoByProfessor()) {
             //            addMessage("Questão id: "+alunoHasQuestao.getAlunoHasQuestaoPK().getQuestaoId()+", Resposta: "+alunoHasQuestao.getResposta());
                         if(Assert.isStringNullOrEmpty(alunoHasQuestao.getResposta())){
                             addMessage(getSeverityWarn(), "Por favor responta todo o questionário antes de continuar!");
@@ -190,15 +188,15 @@ public class QuestionarioBean extends AbstractManager {
         return p;
     }
     
-    public List<Respostas> getListaAlunoHasQuestaoByProfessor(){
+    public List<Resposta> getListaAlunoHasQuestaoByProfessor(){
 //        if(listaAlunoHasQuestoes == null){
 //            if(!Hibernate.isInitialized(aluno.getAlunoHasQuestaoList())){
 //                Hibernate.initialize(aluno.getAlunoHasQuestaoList());
 //            }
 //            listaAlunoHasQuestoes = aluno.getAlunoHasQuestaoList();
 //        }
-        List<Respostas> list = new ArrayList<Respostas>();
-        for (Respostas alunoHasQuestao : listaAlunoHasQuestoes) {
+        List<Resposta> list = new ArrayList<Resposta>();
+        for (Resposta alunoHasQuestao : listaAlunoHasQuestoes) {
             if(alunoHasQuestao.getProfessor().equals(getProfessorAtual()) && listaAlunoHasQuestoes.contains(alunoHasQuestao)){
                 list.add(alunoHasQuestao);
             }
@@ -234,7 +232,7 @@ public class QuestionarioBean extends AbstractManager {
         int totalRespondido = 0;
         if(listaAlunoHasQuestoes != null){
             total = listaAlunoHasQuestoes.size();
-            for (Respostas alunoHasQuestao : listaAlunoHasQuestoes) {
+            for (Resposta alunoHasQuestao : listaAlunoHasQuestoes) {
                 if(!Assert.isStringNullOrEmpty(alunoHasQuestao.getResposta())){
                     totalRespondido++;
                 }

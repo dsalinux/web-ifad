@@ -77,7 +77,7 @@ public class Questao extends EntityManageable {
     @ManyToOne(optional = false)
     private Questionario questionario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questao")
-    private List<Respostas> alunoHasQuestaoList;
+    private List<Resposta> alunoHasQuestaoList;
 
     public Questao() {
     }
@@ -141,11 +141,11 @@ public class Questao extends EntityManageable {
         this.questionario = questionario;
     }
 
-    public List<Respostas> getAlunoHasQuestaoList() {
+    public List<Resposta> getAlunoHasQuestaoList() {
         return alunoHasQuestaoList;
     }
 
-    public void setAlunoHasQuestaoList(List<Respostas> alunoHasQuestaoList) {
+    public void setAlunoHasQuestaoList(List<Resposta> alunoHasQuestaoList) {
         this.alunoHasQuestaoList = alunoHasQuestaoList;
     }
 

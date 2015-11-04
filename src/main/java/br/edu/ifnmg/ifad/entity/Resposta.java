@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package br.edu.ifnmg.ifad.entity;
 
 import br.edu.ifnmg.ifad.util.exception.BusinessException;
@@ -39,13 +38,13 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "respostas")
-public class Respostas extends EntityManageable{
-    
+public class Resposta extends EntityManageable {
+
     private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+
+    @EmbeddedId
+    private RespostaId id;
+
     @Size(max = 1000)
     @Column(name = "resposta")
     private String resposta;
@@ -54,34 +53,37 @@ public class Respostas extends EntityManageable{
     @Column(name = "data_criacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataResposta;
-    @JoinColumn(name = "questao_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @JoinColumn(name = "questao_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Questao questao;
-    @JoinColumn(name = "professor_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @JoinColumn(name = "professor_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Professor professor;
-    @JoinColumn(name = "senha_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @JoinColumn(name = "senha_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Senha senha;
 
-    public Respostas() {
+    public Resposta() {
     }
 
-    public Respostas(Integer id) {
+    public Resposta(RespostaId id) {
         this.id = id;
     }
 
-    public Respostas(Integer id, Date dataResposta) {
+    public Resposta(RespostaId id, Date dataResposta) {
         this.id = id;
         this.dataResposta = dataResposta;
     }
 
+    public Resposta(int questaoId, int professorId, int senhaId) {
+        this(new RespostaId(questaoId, professorId, senhaId));
+    }
 
-    public Integer getId() {
+    public RespostaId getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(RespostaId id) {
         this.id = id;
     }
 
@@ -106,14 +108,24 @@ public class Respostas extends EntityManageable{
     }
 
     public void setQuestao(Questao questao) {
+        if (questao != null) {
+            if (id == null) {
+                id = new RespostaId();
+            }
+            id.setQuestao(questao.getId());
+        }
         this.questao = questao;
     }
-    
+
     public Professor getProfessor() {
         return professor;
     }
 
     public void setProfessor(Professor professor) {
+        if (id == null) {
+            id = new RespostaId();
+        }
+        id.setProfessor(professor.getId());
         this.professor = professor;
     }
 
@@ -122,9 +134,13 @@ public class Respostas extends EntityManageable{
     }
 
     public void setSenha(Senha senha) {
+        if (id == null) {
+            id = new RespostaId();
+        }
+        id.setSenha(senha.getId());
         this.senha = senha;
     }
-    
+
     @Override
     public String toString() {
         return "br.edu.ifnmg.ifad.entity.AlunoHasQuestao[ id=" + id + " ]";
@@ -132,11 +148,8 @@ public class Respostas extends EntityManageable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 23 * hash + (this.questao != null ? this.questao.hashCode() : 0);
-        hash = 23 * hash + (this.professor != null ? this.professor.hashCode() : 0);
-        hash = 23 * hash + (this.senha != null ? this.senha.hashCode() : 0);
+        int hash = 3;
+        hash = 53 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -148,29 +161,18 @@ public class Respostas extends EntityManageable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Respostas other = (Respostas) obj;
-        if (this.questao != other.questao && (this.questao == null || !this.questao.equals(other.questao))) {
+        final Resposta other = (Resposta) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
             return false;
-        }
-        if (this.professor != other.professor && (this.professor == null || !this.professor.equals(other.professor))) {
-            return false;
-        }
-        if (this.senha != other.senha && (this.senha == null || !this.senha.equals(other.senha))) {
-            return false;
-        }
-        if(other.id != null && other.id.equals(id)){
-            return true;
         }
         return true;
     }
 
-    
-
     @Override
     public void save() throws BusinessException {
         valid();
-        Respostas alunoHasQuestao = this;
-        if(dataResposta == null){
+        Resposta alunoHasQuestao = this;
+        if (dataResposta == null) {
             dataResposta = new Date();
         }
         getSession().merge(alunoHasQuestao);
@@ -182,9 +184,9 @@ public class Respostas extends EntityManageable{
 
     @Override
     public void valid() throws BusinessException {
-        if(professor == null || questao == null || senha == null){
+        if (professor == null || questao == null || senha == null) {
             throw new BusinessException("Não foi possível identificar a referências dos seguintes objetos: professor, questão e senha de avaliaçao.");
         }
     }
-    
+
 }

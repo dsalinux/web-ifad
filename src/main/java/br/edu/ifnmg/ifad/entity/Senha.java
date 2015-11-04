@@ -59,7 +59,7 @@ public class Senha extends EntityManageable implements Serializable {
     @ManyToOne(optional = false)
     private Turma turma;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senha")
-    private List<Respostas> respostas;
+    private List<Resposta> respostas;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_finalizacao_resposta")
     private Date dataFinalizacaoResposta;
@@ -104,11 +104,11 @@ public class Senha extends EntityManageable implements Serializable {
         this.turma = turma;
     }
 
-    public List<Respostas> getRespostas() {
+    public List<Resposta> getRespostas() {
         return respostas;
     }
 
-    public void setRespostas(List<Respostas> respostas) {
+    public void setRespostas(List<Resposta> respostas) {
         this.respostas = respostas;
     }
 

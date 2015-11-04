@@ -88,7 +88,7 @@ public class Professor extends EntityManageable{
     @Column(name = "codigo_nivel")
     private String codigoNivel;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
-    private List<Respostas> alunoHasQuestaoList;
+    private List<Resposta> alunoHasQuestaoList;
 
     public Professor() {
     }
@@ -166,11 +166,11 @@ public class Professor extends EntityManageable{
         this.codigoNivel = codigoNivel;
     }
 
-    public List<Respostas> getAlunoHasQuestaoList() {
+    public List<Resposta> getAlunoHasQuestaoList() {
         return alunoHasQuestaoList;
     }
 
-    public void setAlunoHasQuestaoList(List<Respostas> alunoHasQuestaoList) {
+    public void setAlunoHasQuestaoList(List<Resposta> alunoHasQuestaoList) {
         this.alunoHasQuestaoList = alunoHasQuestaoList;
     }
     

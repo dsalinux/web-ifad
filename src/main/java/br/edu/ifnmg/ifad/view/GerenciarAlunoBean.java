@@ -20,9 +20,11 @@ import br.edu.ifnmg.ifad.entity.Turma;
 import br.edu.ifnmg.ifad.util.StringHelper;
 import br.edu.ifnmg.ifad.util.exception.BusinessException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
@@ -101,6 +103,21 @@ public class GerenciarAlunoBean extends GenericCrudBean<Senha>{
     
     public void gerarSenha(){
        getEntity().setSenha(StringHelper.getRandomPassword(12));
+    }
+    
+    public void desbloquear(Senha senha){
+        try {
+            setEntity(senha);
+            if(getEntity().getDataFinalizacaoResposta() == null){
+                getEntity().setDataFinalizacaoResposta(new Date());
+            } else {
+                getEntity().setDataFinalizacaoResposta(null);
+            }
+            save();
+        } catch (Exception ex) {
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao tentar bloquear/desbloquear senha!");
+            Logger.getLogger(GerenciarAlunoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public List<Turma> getTurmas() {

@@ -51,7 +51,7 @@ public class LoginAlunoBean extends AbstractManager {
                     Criteria criteria = s.createCriteria(Senha.class);
                     criteria.add(Restrictions.eq("senha", senha));
                     alunoLogado = (Senha) criteria.uniqueResult();
-                    if(alunoLogado.getDataFinalizacaoResposta() != null){
+                    if(alunoLogado != null && alunoLogado.getDataFinalizacaoResposta() != null){
                         addMessage(getSeverityWarn(), "Seu questionário já foi enviado! Se necessitar solicite o desbloqueio.");
                         return;
                     }

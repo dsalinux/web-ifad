@@ -26,7 +26,8 @@
 
         <mapping class="br.edu.ifnmg.ifad.entity.Usuario"/>
         <mapping class="br.edu.ifnmg.ifad.entity.Senha"/>
-        <mapping class="br.edu.ifnmg.ifad.entity.Respostas"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.Resposta"/>
+        <mapping class="br.edu.ifnmg.ifad.entity.RespostaId"/>
         <mapping class="br.edu.ifnmg.ifad.entity.Configuracao"/>
         <mapping class="br.edu.ifnmg.ifad.entity.Foto"/>
         <mapping class="br.edu.ifnmg.ifad.entity.Professor"/>
