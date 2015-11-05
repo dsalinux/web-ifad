@@ -15,6 +15,7 @@
         <title>Resposta Questionário</title>
         <style>
             .confirmed {background: #7aba7b}
+            .naoMarcou{background-color: salmon}
         </style>
     </h:head>
     <ui:param name="temaSite" value="aristo"></ui:param>
@@ -63,7 +64,7 @@
                     <p:separator></p:separator>
                     <p:spacer height="30px" width="100%"></p:spacer>
                     <!--rowStyleClass="#{not empty ahq.resposta?'confirmed':''}"-->
-                    <p:dataTable rowIndexVar="indiceLinha" value="#{questionarioBean.listaAlunoHasQuestaoByProfessor}" id="resultSet" var="ahq" >
+                    <p:dataTable rowIndexVar="indiceLinha" value="#{questionarioBean.listaAlunoHasQuestaoByProfessor}" rowStyleClass="#{questionarioBean.tentativaIncorreta and empty ahq.resposta? 'naoMarcou' : null}" id="resultSet" var="ahq" >
                         <p:column width="24"><h:outputText value="#{indiceLinha+1}"></h:outputText></p:column>
                         <p:column headerText="Responda conforme sua avaliação. Onde 0 totalmente inssatisfeito e 5 totalmente satisfeito." width="50%">
                             <h:outputText value="#{ahq.questao.descricao}" style=""></h:outputText>

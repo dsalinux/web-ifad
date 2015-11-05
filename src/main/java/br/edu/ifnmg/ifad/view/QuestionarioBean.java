@@ -35,6 +35,8 @@ public class QuestionarioBean extends AbstractManager {
     private List<Resposta> listaAlunoHasQuestoes = new ArrayList<Resposta>();
     private Senha aluno;
     
+    private Boolean tentativaIncorreta = false;
+    
     @ManagedProperty(value = "#{configuracaoBean}")
     private ConfiguracaoBean configuracaoBean;
     @ManagedProperty(value = "#{loginAlunoBean}")
@@ -114,10 +116,12 @@ public class QuestionarioBean extends AbstractManager {
             //            addMessage("Questão id: "+alunoHasQuestao.getAlunoHasQuestaoPK().getQuestaoId()+", Resposta: "+alunoHasQuestao.getResposta());
                         if(Assert.isStringNullOrEmpty(alunoHasQuestao.getResposta())){
                             addMessage(getSeverityWarn(), "Por favor responta todo o questionário antes de continuar!");
+                            tentativaIncorreta = true;
                             return;
                         } else {
                             alunoHasQuestao.setSession(s);
                             alunoHasQuestao.save();
+                            tentativaIncorreta = false;
                         }
                     }
                     if(hasNextProfessor()){
@@ -265,5 +269,13 @@ public class QuestionarioBean extends AbstractManager {
     }
     public void setConfiguracaoBean(ConfiguracaoBean configuracaoBean) {
         this.configuracaoBean = configuracaoBean;
+    }
+
+    public Boolean getTentativaIncorreta() {
+        return tentativaIncorreta;
+    }
+
+    public void setTentativaIncorreta(Boolean tentativaIncorreta) {
+        this.tentativaIncorreta = tentativaIncorreta;
     }
 }
