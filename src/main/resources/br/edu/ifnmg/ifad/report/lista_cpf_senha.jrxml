@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_cpf_senha" columnCount="3" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb8f51a4-d46b-4c7a-a194-ab60ceaae24e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lista_cpf_senha" columnCount="3" printOrder="Horizontal" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb8f51a4-d46b-4c7a-a194-ab60ceaae24e">
 	<property name="ireport.zoom" value="2.357947691000002"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="COD_TURMA" class="java.lang.Integer"/>
+	<parameter name="CONDICAO_WHERE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{COD_TURMA}==null?"":"where senha.turma_id =" + $P{COD_TURMA}]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      senha.`id` AS aluno_id,
@@ -13,8 +16,7 @@
      turma.`nome` AS turma_nome,
      turma.`curso` AS turma_curso
 FROM
-     `turma` turma INNER JOIN `senha` senha ON turma.`id` = senha.`turma_id`
-where senha.turma_id = $P{COD_TURMA}]]>
+     `turma` turma INNER JOIN `senha` senha ON turma.`id` = senha.`turma_id` $P!{CONDICAO_WHERE}]]>
 	</queryString>
 	<field name="aluno_id" class="java.lang.Integer"/>
 	<field name="aluno_senha" class="java.lang.String"/>
@@ -22,6 +24,10 @@ where senha.turma_id = $P{COD_TURMA}]]>
 	<field name="turma_id" class="java.lang.Integer"/>
 	<field name="turma_nome" class="java.lang.String"/>
 	<field name="turma_curso" class="java.lang.String"/>
+	<variable name="TOTAL_PAGINAS" class="java.lang.Integer" resetType="None" incrementType="Group" incrementGroup="Turmas" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<group name="Turmas">
 		<groupExpression><![CDATA[$F{turma_id}]]></groupExpression>
 		<groupHeader>
@@ -36,9 +42,7 @@ where senha.turma_id = $P{COD_TURMA}]]>
 		<groupFooter>
 			<band height="49">
 				<break>
-					<reportElement x="0" y="26" width="100" height="1" uuid="0b3ccfbf-9e5e-45e5-b725-46099ccb5d39">
-						<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==($V{PAGE_COUNT}-1)]]></printWhenExpression>
-					</reportElement>
+					<reportElement isPrintRepeatedValues="false" x="0" y="26" width="100" height="1" printWhenGroupChanges="Turmas" uuid="0b3ccfbf-9e5e-45e5-b725-46099ccb5d39"/>
 				</break>
 			</band>
 		</groupFooter>

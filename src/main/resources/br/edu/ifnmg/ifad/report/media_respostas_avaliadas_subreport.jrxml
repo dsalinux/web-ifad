@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="media_respostas_avaliadas_subreport" language="groovy" pageWidth="572" pageHeight="802" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="media_respostas_avaliadas_subreport" pageWidth="572" pageHeight="802" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="011fbcd8-80b4-44ac-a739-cff059c81081">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select (sum(ah.resposta)/count(ah.resposta)) as media_resposta, ah.questao_id, q.descricao from aluno_has_questao ah inner join questao q on q.id = ah.questao_id where ah.resposta is not null and ah.professor_id = $P{PROFESSOR_ID} group by questao_id]]>
+		<![CDATA[select (sum(resp.resposta)/count(resp.resposta)) as media_resposta, resp.questao_id, q.descricao from respostas resp inner join questao q on q.id = resp.questao_id where resp.resposta is not null and resp.professor_id = $P{PROFESSOR_ID} group by questao_id]]>
 	</queryString>
 	<field name="media_resposta" class="java.lang.Double"/>
 	<field name="questao_id" class="java.lang.Integer"/>
@@ -24,7 +24,7 @@
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="502" y="0" width="70" height="20" backcolor="#AAAAAA"/>
+				<reportElement mode="Opaque" x="502" y="0" width="70" height="20" backcolor="#AAAAAA" uuid="75c7b6cc-3b65-4167-84b7-77a30e266f9e"/>
 				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -37,7 +37,7 @@
 				<text><![CDATA[Pontuação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="502" height="20" backcolor="#AAAAAA"/>
+				<reportElement mode="Opaque" x="0" y="0" width="502" height="20" backcolor="#AAAAAA" uuid="7237896a-8afd-4665-9636-61245a6ae3a2"/>
 				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -54,7 +54,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00">
-				<reportElement stretchType="RelativeToTallestObject" x="502" y="0" width="70" height="20"/>
+				<reportElement stretchType="RelativeToTallestObject" x="502" y="0" width="70" height="20" uuid="ed032e1c-6134-4b24-8918-ac3fc6932543"/>
 				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="6">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -62,18 +62,17 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{media_resposta}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{media_resposta}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="502" height="20"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="502" height="20" uuid="44c1e98b-17b2-4e16-adc5-3e3c7cb0eb9b"/>
 				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{COLUMN_COUNT}+" - "+$F{descricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}+" - "+$F{descricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

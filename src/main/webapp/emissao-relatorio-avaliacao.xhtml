@@ -13,13 +13,8 @@
         <h:form id="frm">
             <h2>Emissão de Senhas</h2>
             <h:panelGrid columns="1">
-<!--                <h:outputLabel value="Turma:"></h:outputLabel>
-                <p:selectOneMenu value="#{managed.turma}">
-                    <f:selectItem itemValue="null" itemLabel="Selecione"></f:selectItem>
-                    <f:selectItems value="#{managed.turmas}" var="t" itemValue="#{t}" itemLabel="#{t.nome}"></f:selectItems>
-                </p:selectOneMenu>-->
                 <p:commandButton value="Download" ajax="false" icon="ui-icon-print" onclick="PrimeFaces.monitorDownload(startStatus, stopStatus);">
-                    <p:fileDownload value="#{managed.senhasFile}"></p:fileDownload>
+                    <p:fileDownload value="#{managed.fichaAvaliacaoDocenteFile}"></p:fileDownload>
                 </p:commandButton>
             </h:panelGrid>
         </h:form>

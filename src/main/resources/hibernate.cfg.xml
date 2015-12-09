@@ -6,13 +6,13 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     
 <!--        Configuracoes Developement -->
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
-        
 <!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>-->
+        
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
         <property name="hibernate.connection.username">ifad</property>
-        <property name="hibernate.connection.password">pifad1312</property>-->
+        <property name="hibernate.connection.password">pifad1312</property>
     
         <property name="hibernate.format_sql">false</property>
         <property name="hibernate.show_sql">false</property>

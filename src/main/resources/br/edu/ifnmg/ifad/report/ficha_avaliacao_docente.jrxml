@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha_avaliacao_docente" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha_avaliacao_docente" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba5690b5-fd70-4746-9413-d857bcf9358b">
 	<property name="ireport.zoom" value="1.7715610000000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/danilo/NetBeansProjects/web-ifad/src/main/resources/br/edu/ifnmg/ifad/report/"]]></defaultValueExpression>
+	<property name="ireport.y" value="273"/>
+	<parameter name="SUBREPORT_DIR" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select (sum(ah.resposta)/count(ah.resposta)) as media_geral, ((sum(ah.resposta)/count(ah.resposta))*2) as nota_final, p.nome, p.campus_lotacao, p.id as professor_id, matricula_siape from professor as p join aluno_has_questao as ah on ah.professor_id = p.id and resposta is not null group by id;]]>
+		<![CDATA[select (sum(resp.resposta)/count(resp.resposta)) as media_geral, ((sum(resp.resposta)/count(resp.resposta))*2) as nota_final, p.nome, p.campus_lotacao, p.id as professor_id, matricula_siape from professor as p join respostas as resp on resp.professor_id = p.id and resposta is not null group by p.id;]]>
 	</queryString>
 	<field name="media_geral" class="java.lang.Double"/>
 	<field name="nota_final" class="java.lang.Double"/>
@@ -30,25 +30,25 @@
 	<detail>
 		<band height="412" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle" onErrorType="Icon">
-				<reportElement x="0" y="0" width="572" height="50"/>
-				<imageExpression class="java.lang.String"><![CDATA["/home/danilo/NetBeansProjects/web-ifad/src/main/resources/br/edu/ifnmg/ifad/report/brasao.gif"]]></imageExpression>
+				<reportElement x="0" y="0" width="572" height="50" uuid="9e12e560-6667-4208-a6ad-b4a1db572b68"/>
+				<imageExpression><![CDATA["/home/danilo/NetBeansProjects/web-ifad/src/main/resources/br/edu/ifnmg/ifad/report/brasao.gif"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="0" y="50" width="572" height="31"/>
+				<reportElement x="0" y="50" width="572" height="31" uuid="5a7d3be1-85f7-476c-a363-8feb78f01fab"/>
 				<box bottomPadding="2"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[Ministério da Educação
 Secretaria de Educação Profissional e Tecnológica]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="81" width="572" height="20"/>
+				<reportElement x="0" y="81" width="572" height="20" uuid="3345ad10-cd81-4492-a373-46f0fd60821d"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Instituto Federal do Norte de Minas Gerais]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="101" width="572" height="16"/>
+				<reportElement x="0" y="101" width="572" height="16" uuid="1a151c74-7e8d-48a6-8aae-9000f998e95e"/>
 				<box bottomPadding="2"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="11" isBold="true"/>
@@ -56,61 +56,61 @@ Secretaria de Educação Profissional e Tecnológica]]></text>
 				<text><![CDATA[Ficha de Avaliação de Desempenho Docente pelos Discentes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="121" width="97" height="20"/>
+				<reportElement x="0" y="121" width="97" height="20" uuid="1413cd96-7d49-42d6-ad92-02f4853352ca"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Nome do Docente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="97" y="121" width="475" height="20"/>
+				<reportElement x="97" y="121" width="475" height="20" uuid="64a2ab1a-752b-409b-82c0-cd2089c253f4"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="141" width="83" height="20"/>
+				<reportElement x="0" y="141" width="83" height="20" uuid="4a029543-3599-4225-a841-7c6be523dea8"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Matrícula SIAPE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="231" y="141" width="104" height="20"/>
+				<reportElement x="231" y="141" width="104" height="20" uuid="a3f1e8ca-b759-40cc-9e24-6f821d5af2f6"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Campus de Lotação:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="335" y="141" width="237" height="20"/>
+				<reportElement x="335" y="141" width="237" height="20" uuid="a01c3254-a090-4715-ac3c-fda2b1f3b1e7"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{campus_lotacao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{campus_lotacao}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="161" width="127" height="20"/>
+				<reportElement x="0" y="161" width="127" height="20" uuid="4c475085-7640-42ab-b5f2-f5a5ae91d9f5"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Semestre / Ano Avaliado:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="127" y="161" width="445" height="20"/>
+				<reportElement x="127" y="161" width="445" height="20" uuid="f85748b6-6b12-4f48-b46f-69f734b27aca"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["02/2014"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["01/2015"]]></textFieldExpression>
 			</textField>
 			<break>
-				<reportElement positionType="Float" x="0" y="401" width="572" height="1">
+				<reportElement positionType="Float" x="0" y="401" width="572" height="1" uuid="d4059f0d-bd0d-46f3-8c2c-036b7d92d57a">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==($V{PAGE_COUNT}-1)]]></printWhenExpression>
 				</reportElement>
 			</break>
 			<subreport isUsingCache="true">
-				<reportElement x="0" y="181" width="572" height="35"/>
+				<reportElement x="0" y="181" width="572" height="35" uuid="56fb6977-3bdc-4390-8218-b7fb52f84b05"/>
 				<subreportParameter name="PROFESSOR_ID">
 					<subreportParameterExpression><![CDATA[$F{professor_id}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "media_respostas_avaliadas_subreport.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
 			</subreport>
 			<textField pattern="###0.00;-###0.00">
-				<reportElement positionType="Float" x="502" y="216" width="70" height="20"/>
+				<reportElement positionType="Float" x="502" y="216" width="70" height="20" uuid="e2ea8a31-6420-4afb-8780-4bf57939dcaa"/>
 				<box rightPadding="6">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -120,16 +120,16 @@ Secretaria de Educação Profissional e Tecnológica]]></text>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{media_geral}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{media_geral}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement positionType="Float" x="0" y="254" width="345" height="20"/>
+				<reportElement positionType="Float" x="0" y="254" width="345" height="20" uuid="5dcd59d4-0ed0-48f5-8a91-c5b4eae7490b"/>
 				<box leftPadding="10"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Arinos - MG, " + new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Arinos - MG, " + new SimpleDateFormat("dd 'de' MMMMM 'de' yyyy").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="402" y="216" width="100" height="20"/>
+				<reportElement positionType="Float" x="402" y="216" width="100" height="20" uuid="0c5c9d8e-9f84-42cd-8a35-57278e0d7c8f"/>
 				<box rightPadding="6"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -137,50 +137,50 @@ Secretaria de Educação Profissional e Tecnológica]]></text>
 				<text><![CDATA[Média Total]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="12" y="310" width="250" height="1"/>
+				<reportElement positionType="Float" x="12" y="310" width="250" height="1" uuid="10aa0ffd-0047-4ee6-8f51-36b515ed2b35"/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="310" y="310" width="250" height="1"/>
+				<reportElement positionType="Float" x="310" y="310" width="250" height="1" uuid="ce4ea120-cc31-4982-ba86-899d78a1f433"/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" x="12" y="311" width="250" height="20"/>
+				<reportElement positionType="Float" x="12" y="311" width="250" height="20" uuid="22978f2d-86e7-44fd-b387-4b338fcece9c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Assinatura Presisente da Comissão]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="310" y="311" width="250" height="20"/>
+				<reportElement positionType="Float" x="310" y="311" width="250" height="20" uuid="26d374ae-bbc3-49bf-bb9a-48ed57f48bf0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Assinatura Presisente da Subcomissão CPPD]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="12" y="348" width="184" height="20"/>
+				<reportElement positionType="Float" x="12" y="348" width="184" height="20" uuid="aa271327-07cb-400c-985c-dfa4e77a6c5f"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Ciente em: _____/_____/________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="218" y="348" width="127" height="20"/>
+				<reportElement positionType="Float" x="218" y="348" width="127" height="20" uuid="dd195697-b0d9-4d22-9256-8d988f5fb595"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Assinatura do Servidor: ]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="350" y="363" width="210" height="1"/>
+				<reportElement positionType="Float" x="350" y="363" width="210" height="1" uuid="956d0a21-78e2-49f5-bfb2-9990c1be95dc"/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" x="12" y="376" width="548" height="20"/>
+				<reportElement positionType="Float" x="12" y="376" width="548" height="20" uuid="de600537-dbb7-4cf3-902b-3a361c0de140"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Esta ficha deverá ser arquivada na pasta funcional do servidor após o preenchimento.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="83" y="141" width="100" height="20"/>
+				<reportElement x="83" y="141" width="100" height="20" uuid="07395ba6-8a40-4d72-b62e-35827edd5464"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{matricula_siape}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{matricula_siape}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
-				<reportElement positionType="Float" x="502" y="236" width="70" height="20"/>
+				<reportElement positionType="Float" x="502" y="236" width="70" height="20" uuid="93074ed1-d5cd-417f-9921-19dd91a6947d"/>
 				<box rightPadding="6">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -190,10 +190,10 @@ Secretaria de Educação Profissional e Tecnológica]]></text>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{nota_final}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nota_final}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="402" y="236" width="100" height="20"/>
+				<reportElement positionType="Float" x="402" y="236" width="100" height="20" uuid="f11ca97c-82b7-415c-b4fa-269a08fb294e"/>
 				<box rightPadding="6"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>

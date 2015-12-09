@@ -21,7 +21,9 @@ import br.edu.ifnmg.ifad.util.ReportUtil;
 import br.edu.ifnmg.ifad.util.exception.BusinessException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -70,6 +72,7 @@ public class EmissaoReportsBean extends AbstractManager {
             map.put("REPORT_CONNECTION",factoryImplementor.getConnectionProvider().getConnection());
             StringBuilder nome = new StringBuilder("lista_ata_");
             nome.append(turma.getNome().replaceAll(" ", "_"));
+            nome.append(".pdf");
             StreamedContent streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(ReportUtil.reportToPDF(null, inputStream, map)), "application/pdf", nome.toString());
             return streamedContent;
         } catch (Exception ex) {
@@ -80,17 +83,39 @@ public class EmissaoReportsBean extends AbstractManager {
     }
     public StreamedContent getSenhasFile() {
         try {
-            if(turma == null){
-                addMessage(getSeverityWarn(),"Por favor selecione a turma!");
-                return null;
-            }
+//            if(turma == null){
+//                addMessage(getSeverityWarn(),"Por favor selecione a turma!");
+//                return null;
+//            }
             InputStream inputStream = getClass().getResourceAsStream("/br/edu/ifnmg/ifad/report/lista_cpf_senha.jrxml");
             HashMap<String, Object> map  = new HashMap<String, Object>();
-            map.put("COD_TURMA", turma.getId());
+            StringBuilder nome = new StringBuilder("senhas_");
+            if(turma != null){
+                map.put("COD_TURMA", turma.getId());
+                nome.append(turma.getNome().replaceAll(" ", "_"));
+            }
             SessionFactoryImplementor factoryImplementor = (SessionFactoryImplementor) HibernateUtil.getSessionFactory();
             map.put("REPORT_CONNECTION",factoryImplementor.getConnectionProvider().getConnection());
-            StringBuilder nome = new StringBuilder("senhas_");
-            nome.append(turma.getNome().replaceAll(" ", "_"));
+            nome.append(".pdf");
+            StreamedContent streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(ReportUtil.reportToPDF(null, inputStream, map)), "application/pdf", nome.toString());
+            return streamedContent;
+        } catch (Exception ex) {
+            addMessage(getSeverityError(),"Erro ao emitir arquivo com senhas! Detalhes: "+ex.getMessage());
+            Logger.getLogger(EmissaoReportsBean.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public StreamedContent getFichaAvaliacaoDocenteFile() {
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/br/edu/ifnmg/ifad/report/ficha_avaliacao_docente.jrxml");
+            HashMap<String, Object> map  = new HashMap<String, Object>();
+            InputStream isSubReport = getClass().getResourceAsStream("/br/edu/ifnmg/ifad/report/media_respostas_avaliadas_subreport.jrxml");
+            map.put("SUBREPORT_DIR", ReportUtil.compileReport(isSubReport));
+            SessionFactoryImplementor factoryImplementor = (SessionFactoryImplementor) HibernateUtil.getSessionFactory();
+            map.put("REPORT_CONNECTION",factoryImplementor.getConnectionProvider().getConnection());
+            StringBuilder nome = new StringBuilder("ficha_avaliacao_docente_");
+            nome.append(new SimpleDateFormat("yyyy_MM_dd").format(new Date()));
+            nome.append(".pdf");
             StreamedContent streamedContent = new DefaultStreamedContent(new ByteArrayInputStream(ReportUtil.reportToPDF(null, inputStream, map)), "application/pdf", nome.toString());
             return streamedContent;
         } catch (Exception ex) {
