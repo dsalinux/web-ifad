@@ -56,7 +56,7 @@
                 <p:commandButton value="Alterar Senha" icon="ui-icon-key" style="width: 100%"></p:commandButton>
             </p:dialog>
 
-            
+
             <p:dialog header="Alterar a aparência" height="400" width="600" widgetVar="idaparencia" modal="true" showEffect="fade" hideEffect="fade">
                 <h:panelGrid columns="1">
                     <h:outputText value="Aparência:" rendererType="block"></h:outputText>
@@ -66,13 +66,13 @@
                         </p:commandLink>
                         <h:outputText value="#{tema}" style="width: 100%; text-align: center; display: block"></h:outputText>
                     </p:dataGrid>
-                    
+
                 </h:panelGrid>
                 <script type="text/javascript">
                     function setTheme(contextPath, theme) {
-                     var themePath =  contextPath + "/javax.faces.resource/theme.css.jsf?ln=primefaces-" + theme;
-                     jQuery("link[href*='theme.css']").attr("href", themePath);
-                        }
+                        var themePath = contextPath + "/javax.faces.resource/theme.css.jsf?ln=primefaces-" + theme;
+                        jQuery("link[href*='theme.css']").attr("href", themePath);
+                    }
                 </script>
             </p:dialog>
 
@@ -81,7 +81,7 @@
                 <div class="ui-widget ui-widget-header ui-corner-all" style="width: 120px; height: 60px; position: relative; left: 10px; float: left">
                     <h:panelGroup id="pnlImage" layout="block" style="width: 110px; height: 50px; margin-top: 5px; margin-left: 5px; text-align: center; background-color: #fff">
                         <h:panelGroup layout="block" style="display: table-cell;vertical-align: middle; width: 110px; height: 50px;">
-                             <p:graphicImage library="imagens" name="logo-mini.jpg" style="max-width: 100px; max-height: 50px;"></p:graphicImage>
+                            <p:graphicImage library="imagens" name="logo-mini.jpg" style="max-width: 100px; max-height: 50px;"></p:graphicImage>
                         </h:panelGroup>
                     </h:panelGroup>
                 </div>
@@ -95,15 +95,18 @@
                         <p:menuitem value="Senhas" icon="glyphicon-show-menu glyphicon glyphicon-tag" url="gerenciar-senhas.jsf"></p:menuitem>
                         <p:menuitem value="Questões" icon="glyphicon-show-menu glyphicon glyphicon-ok" url="gerenciar-questoes.jsf"></p:menuitem>
                         <p:menuitem value="Configurações" icon="glyphicon-show-menu glyphicon glyphicon-wrench" url="configuracoes.jsf"></p:menuitem>
+
                     </p:submenu>
                     <p:submenu label="Emissão" icon="ui-icon-print">
                         <p:menuitem value="Senhas avaliação" icon="glyphicon-show-menu glyphicon glyphicon-file" url="emissao-senhas.jsf"></p:menuitem>
                         <p:menuitem value="Ficha final" icon="glyphicon-show-menu glyphicon glyphicon-file" url="emissao-relatorio-avaliacao.jsf"></p:menuitem>
                     </p:submenu>
-                    
+
                     <p:submenu label="Ajuda" icon="ui-icon-help" id="submen">
-                        <p:menuitem value="Ajuda do Sistema" onclick="PF('dialogajudadosistema').show(); return false;"></p:menuitem>
-                        <p:menuitem value="Sobre" ajax="false" onclick="PF('dialogaboutapplication').show(); return false;"></p:menuitem>
+                        <p:menuitem value="Ajuda do Sistema" onclick="PF('dialogajudadosistema').show();
+                                return false;"></p:menuitem>
+                        <p:menuitem value="Sobre" ajax="false" onclick="PF('dialogaboutapplication').show();
+                                return false;"></p:menuitem>
                     </p:submenu>
                 </p:menubar>
                 <div style="padding: 3px 0px 0px 0px; float: left">
@@ -122,8 +125,10 @@
                                     <p:separator style="height: 1px;"></p:separator>
                                     <h:outputText value="#{contextView.login.email}" style="text-align: center;  width: 100%;display:block"></h:outputText>
                                     <p:spacer height="5px"></p:spacer>
-                                    <p:button icon="ui-icon-key" value="Alterar Senha" onclick="PF('changepassid').show(); return false;" style="width: 100%"></p:button>
-                                    <p:button value="Alterar Aparência" icon="ui-icon-star" onclick="PF('idaparencia').show(); return false;" style="width: 100%"></p:button>
+                                    <p:button icon="ui-icon-key" value="Alterar Senha" onclick="PF('changepassid').show();
+                                            return false;" style="width: 100%"></p:button>
+                                    <p:button value="Alterar Aparência" icon="ui-icon-star" onclick="PF('idaparencia').show();
+                                            return false;" style="width: 100%"></p:button>
                                     <p:commandButton value="Sair" icon="ui-icon-close" ajax="false" style="width: 100%" action="#{contextView.deslogar()}"></p:commandButton>
                                 </h:panelGrid>
                             </p:column>
@@ -132,7 +137,7 @@
                 </div>
             </div>
         </h:form>
-        
+
         <div id="content" class="center_content">
             <p:fieldset style="position: relative; min-height: 100%">
                 <p:messages autoUpdate="true" showDetail="true" escape="false">
@@ -160,7 +165,7 @@
             <ui:include parent="this" src="help.xhtml"></ui:include>
         </p:dialog>
         <script>
-            function showError(data){
+            function showError(data) {
                 alert(data);
             }
             function startStatus() {
