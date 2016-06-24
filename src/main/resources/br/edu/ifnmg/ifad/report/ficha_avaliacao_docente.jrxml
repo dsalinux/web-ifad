@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ficha_avaliacao_docente" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba5690b5-fd70-4746-9413-d857bcf9358b">
 	<property name="ireport.zoom" value="1.7715610000000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="273"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -31,7 +31,7 @@
 		<band height="412" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle" onErrorType="Icon">
 				<reportElement x="0" y="0" width="572" height="50" uuid="9e12e560-6667-4208-a6ad-b4a1db572b68"/>
-				<imageExpression><![CDATA["/home/danilo/NetBeansProjects/web-ifad/src/main/resources/br/edu/ifnmg/ifad/report/brasao.gif"]]></imageExpression>
+				<imageExpression><![CDATA["br/edu/ifnmg/ifad/report/brasao.gif"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="0" y="50" width="572" height="31" uuid="5a7d3be1-85f7-476c-a363-8feb78f01fab"/>
@@ -94,7 +94,7 @@ Secretaria de Educação Profissional e Tecnológica]]></text>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["01/2015"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["02/2015"]]></textFieldExpression>
 			</textField>
 			<break>
 				<reportElement positionType="Float" x="0" y="401" width="572" height="1" uuid="d4059f0d-bd0d-46f3-8c2c-036b7d92d57a">
