@@ -6,16 +6,17 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     
 <!--        Configuracoes Developement -->
-<!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad?useSSL=false</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>-->
+        <property name="hibernate.connection.password">root</property>
         
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
+<!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
         <property name="hibernate.connection.username">ifad</property>
-        <property name="hibernate.connection.password">pifad1312</property>
+        <property name="hibernate.connection.password">pifad1312</property>-->
     
-        <property name="hibernate.format_sql">false</property>
-        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         
 <!--            <property name="hibernate.cache.use_query_cache">true</property>
             <property name="hibernate.cache.use_second_level_cache">false</property>-->
@@ -23,6 +24,7 @@
         <property name="hibernate.connection.provider_class">
             org.hibernate.connection.C3P0ConnectionProvider
         </property>
+        
         <property name="hibernate.c3p0.min_size">0</property>
         <property name="hibernate.c3p0.max_size">100</property>
         <property name="hibernate.c3p0.timeout">60</property>

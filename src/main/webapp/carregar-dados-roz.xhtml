@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="template.xhtml">
+   
+    <h:head></h:head>
+    <ui:param name="titulo" value="Carregar Dados Roz"/>
+    <ui:param name="icone" value="glyphicon-cloud-upload"/>
+    <h:body>
+        <h:form>
+            <p:fileUpload auto="true" process="@form" label="Carregar Arquivo" update="@form" fileUploadListener="#{importarXmlRoz.iniciarImportacao}"></p:fileUpload>
+            <p:commandButton value="Importar" actionListener="#{importarXmlRoz.salvar()}" update="@form" rendered="#{not empty importarXmlRoz.classes}"></p:commandButton>
+            <p:panelGrid columns="2">
+                <p:dataTable paginator="true" rows="10" value="#{importarXmlRoz.classes}" var="c" rendered="#{not empty importarXmlRoz.classes}">
+                    <p:column headerText="Turmas">
+                        <h:outputText value="#{c.name}"></h:outputText>
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable paginator="true" rows="10" value="#{importarXmlRoz.professores}" var="c" rendered="#{not empty importarXmlRoz.professores}">
+                    <p:column headerText="Professores">
+                        <h:outputText value="#{c.name}"></h:outputText>
+                    </p:column>
+                </p:dataTable>
+                
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</ui:decorate>
+

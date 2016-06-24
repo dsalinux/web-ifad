@@ -69,6 +69,11 @@
             <version>3.5.1-Final</version>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.39</version>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.5.8</version>
@@ -90,6 +95,20 @@
             <version>3.5.1-Final</version>
         </dependency>
 
+        <!-- Dependencias de Arquivos -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        
+        
+        <!-- Dependencias de XML -->
+        <dependency>
+            <groupId>org.w3c</groupId>
+            <artifactId>dom</artifactId>
+            <version>2.3.0-jaxb-1.0.6</version>
+        </dependency>
         <!-- Dependencias de Relatorios -->
 
         <dependency>
