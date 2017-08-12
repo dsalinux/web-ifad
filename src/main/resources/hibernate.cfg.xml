@@ -6,13 +6,11 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     
 <!--        Configuracoes Developement -->
-<<<<<<< HEAD
+
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad?useSSL=false</property>
-=======
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
->>>>>>> origin/master
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
+        
         
 <!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ifad</property>
         <property name="hibernate.connection.username">ifad</property>
