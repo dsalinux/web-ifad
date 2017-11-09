@@ -49,7 +49,11 @@ import javax.validation.constraints.Size;
 public class Questao extends EntityManageable {
     
     public enum TipoQuestao {
-        AVALIACAO1A5,
+        AVALIACAO0A5,
+        AVALIACAO0A2,
+        AVALIACAO0A3,
+        AVALIACAO0A2CONCEITO,
+        AVALIACAO0A3CONCEITO,
         TEXTO;
     }
     
@@ -67,7 +71,7 @@ public class Questao extends EntityManageable {
     private String descricao;
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo")
-    private TipoQuestao tipo_ = TipoQuestao.AVALIACAO1A5;
+    private TipoQuestao tipo_ = TipoQuestao.AVALIACAO0A5;
     @Column(name = "opcoes")
     private String opcoes;
     @Size(max = 200)

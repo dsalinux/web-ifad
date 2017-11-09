@@ -115,7 +115,7 @@ public class QuestionarioBean extends AbstractManager {
                     for (Resposta alunoHasQuestao : getListaAlunoHasQuestaoByProfessor()) {
             //            addMessage("Questão id: "+alunoHasQuestao.getAlunoHasQuestaoPK().getQuestaoId()+", Resposta: "+alunoHasQuestao.getResposta());
                         if(Assert.isStringNullOrEmpty(alunoHasQuestao.getResposta())){
-                            addMessage(getSeverityWarn(), "Por favor responta todo o questionário antes de continuar!");
+                            addMessage(getSeverityError(), "Por favor responta todo o questionário antes de continuar!");
                             tentativaIncorreta = true;
                             return;
                         } else {

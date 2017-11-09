@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:if="http://java.sun.com/jsf/composite/if">
+    <h:head>
+    </h:head>
+    <ui:param name="managed" value="#{gerenciarTiposRespostasBean}"/>
+    <h:body>
+        <h:form id="frm">
+            <if:toolbar controller="#{managed}" title="Gerenciar Tipos Questões" icon="glyphicon-briefcase"></if:toolbar>
+            <p:spacer height="20px"></p:spacer>
+            <h:panelGrid columns="1" rendered="#{managed.stateNotSearch}">
+                <h:outputLabel for="inpNome" value="Nome:"></h:outputLabel>
+                <p:inputText id="inpNome" value="#{managed.entity.nome}"></p:inputText>
+                <h:outputLabel for="selectTipo" value="Tipo:"></h:outputLabel>
+                <p:selectOneMenu value="#{managed.entity.tipo_}">
+                    <f:selectItem itemValue="texto_curto" itemLabel="Texto Curto (50 caracteres)"></f:selectItem>
+                    <f:selectItem itemValue="texto_longo" itemLabel="Pontuação (0 a 5)"></f:selectItem>
+                    <f:selectItem itemValue="selecionar1" itemLabel="Pontuação (0 a 3)"></f:selectItem>
+                    <f:selectItem itemValue="selecionarvarios" itemLabel="Pontuação (0 a 2)"></f:selectItem>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <p:dataTable value="#{managed.entitys}" var="entity" rendered="#{managed.stateSearch}" emptyMessage="Nenhuma informação para listar!">
+                <p:column style="width: 20px;"><p:commandLink styleClass="ui-icon ui-icon-pencil" actionListener="#{managed.edit(entity)}" update=":frm"></p:commandLink></p:column>
+                <p:column headerText="Nome" filterBy="#{entity.nome}" sortBy="#{entity.nome}">
+                    <h:outputText value="#{entity.nome}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</ui:decorate>

@@ -30,7 +30,7 @@ import org.hibernate.criterion.Restrictions;
 @SessionScoped
 public class LoginView extends AbstractManager {
 
-    private String email;
+    private String login;
     private String senha;
     private String repetirSenha;
     private String url;
@@ -38,14 +38,14 @@ public class LoginView extends AbstractManager {
 
     public void logar() {
         try {
-            if(StringHelper.isEmpty(email) || StringHelper.isEmpty(senha)){
-                throw new BusinessException("Por favor informe o E-mail e a Senha!");
+            if(StringHelper.isEmpty(login) || StringHelper.isEmpty(senha)){
+                throw new BusinessException("Por favor informe o Login e a Senha!");
             }
-            Usuario login = doInTransaction(new PersistenceAction<Usuario>() {
+            Usuario usuarioLogado = doInTransaction(new PersistenceAction<Usuario>() {
                 @Override
                 public Usuario execute(Session s) throws BusinessException {
                     Criteria criteria = s.createCriteria(Usuario.class);
-                    criteria.add(Restrictions.eq("email", email));
+                    criteria.add(Restrictions.eq("login", login));
                     criteria.add(Restrictions.eq("senha", senha));
                     Usuario login = (Usuario) criteria.uniqueResult();
                     if(login == null){
@@ -55,7 +55,7 @@ public class LoginView extends AbstractManager {
                 }
             });
             senha = null;
-            Context.setLogin(login);
+            Context.setLogin(usuarioLogado);
         } catch (BusinessException ex) {
             addMessage(FacesMessage.SEVERITY_WARN, ex.getMessage());
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,12 +145,12 @@ public class LoginView extends AbstractManager {
         return false;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getSenha() {

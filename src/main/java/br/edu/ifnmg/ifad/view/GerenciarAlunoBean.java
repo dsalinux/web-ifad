@@ -63,14 +63,14 @@ public class GerenciarAlunoBean extends GenericCrudBean<Senha>{
 
                 @Override
                 public void execute(Session s) throws BusinessException {
-                    if(quantidadeTotal){
+//                    if(quantidadeTotal){
                         qtSenhas = quantidadeSenhas;
-                    } else {
-                        Criteria criteria = s.createCriteria(Senha.class);
-                        criteria.setProjection(Projections.count("id"));
-                        Integer quantidade = (Integer) criteria.uniqueResult();
-                        qtSenhas=quantidadeSenhas-quantidade;
-                    }
+//                    } else {
+//                        Criteria criteria = s.createCriteria(Senha.class);
+//                        criteria.setProjection(Projections.count("id"));
+//                        Integer quantidade = (Integer) criteria.uniqueResult();
+//                        qtSenhas=quantidadeSenhas-quantidade;
+//                    }
                     if(qtSenhas <= 0){
                         addMessage(getSeverityWarn(),"Quantidade de senhas é inválida.");
                         return;

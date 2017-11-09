@@ -12,16 +12,15 @@
     <ui:param name="managed" value="#{gerenciarAlunoBean}"/>
     <h:body>
         <h:form id="frm">
-            <if:toolbar controller="#{managed}" icon="glyphicon-user" title="Gerenciar Alunos"/>
+            <if:toolbar controller="#{managed}" icon="glyphicon-user" title="Gerenciar Alunos">
+                <p:button value="Gerar Senhas" icon="ui-icon-key" onclick="PF('dialogGerarSenha').show(); return;"></p:button>
+            </if:toolbar>
             <p:spacer height="20px"></p:spacer>
-            <p:button value="Gerar Senhas" onclick="PF('dialogGerarSenha').show(); return;"></p:button>
             <p:spacer height="20px"></p:spacer>
             <p:dialog header="Gerar senhas" widgetVar="dialogGerarSenha">
                 <p:panelGrid columns="2">
                     <h:outputText value="Quantidade senhas:"/>
-                    <p:inputText value="#{gerenciarAlunoBean.quantidadeSenhas}"></p:inputText>
-                    <p:selectBooleanCheckbox value="#{gerenciarAlunoBean.quantidadeTotal}"></p:selectBooleanCheckbox>
-                    <h:outputText value="Gerar total de senhas informadas"/>
+                    <p:spinner min="1" value="#{gerenciarAlunoBean.quantidadeSenhas}"></p:spinner>
                     <h:outputLabel value="Turma:"></h:outputLabel>
                     <p:selectOneMenu value="#{managed.turma}">
                         <f:selectItem itemValue="null" itemLabel="Selecione"></f:selectItem>

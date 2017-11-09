@@ -12,7 +12,7 @@
         <h:graphicImage library="imagens" name="load.gif" style="float: right; height: 64px; margin-left: 20px; margin-top: 30px;" rendered="#{contextView.login != null and !contextView.login.alterarSenha}"></h:graphicImage>
         <h:panelGrid columns="1" style="text-align: left; width: 100%; text-align: center" rendered="#{contextView.login == null}">
             <h:outputLabel value="Email"/>
-            <p:inputText id="email" value="#{loginView.email}"></p:inputText>
+            <p:inputText id="email" value="#{loginView.login}"></p:inputText>
             <h:outputLabel value="Senha"/>
             <p:password value="#{loginView.senha}" id="password"></p:password>
             <p:commandButton value="Acessar" ajax="false" style="width: 175px;" actionListener="#{loginView.logar()}" update="frm" oncomplete="#{loginView.pronto?'loginredirect()':''}"></p:commandButton>

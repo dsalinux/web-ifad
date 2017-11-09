@@ -37,7 +37,11 @@
                 <p:inputText value="#{managed.entity.dica}"></p:inputText>
                 <h:outputLabel value="Tipo Questão:"></h:outputLabel>
                 <p:selectOneMenu value="#{managed.entity.tipo_}">
-                    <f:selectItem itemValue="AVALIACAO1A5" itemLabel="Pontuação (1 a 5)"></f:selectItem>
+                    <f:selectItem itemValue="AVALIACAO0A5" itemLabel="Pontuação (0 a 5)"></f:selectItem>
+                    <f:selectItem itemValue="AVALIACAO0A3" itemLabel="Pontuação (0 a 3)"></f:selectItem>
+                    <f:selectItem itemValue="AVALIACAO0A2" itemLabel="Pontuação (0 a 2)"></f:selectItem>
+                    <f:selectItem itemValue="AVALIACAO0A3CONCEITO" itemLabel="Pontuação (Ruin, Regular, Bom, Ótimo)"></f:selectItem>
+                    <f:selectItem itemValue="AVALIACAO0A2CONCEITO" itemLabel="Pontuação (Ruin, Regular, Ótimo)"></f:selectItem>
                     <f:selectItem itemValue="TEXTO" itemLabel="Texto"></f:selectItem>
                 </p:selectOneMenu>
             </h:panelGrid>

@@ -30,6 +30,14 @@
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
                     <p:commandButton actionListener="#{cc.attrs.controller.search}" update=":#{cc.attrs.idUpdate}" value="#{cc.attrs.controller.currentStateName == 'SEARCH'? empty cc.attrs.controller.entitys?'Pesquisar':'Atualizar':'Cancelar'}" icon="#{cc.attrs.controller.currentStateName == 'SEARCH'? empty cc.attrs.controller.entitys?'ui-icon-search':'ui-icon-refresh':'ui-icon-arrowreturnthick-1-w'}"></p:commandButton>
+                    
+                        <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+                    <cc:insertChildren>
+                        
+                        
+                    </cc:insertChildren>
                 </h:panelGroup>
             </f:facet>
             <f:facet name="right">

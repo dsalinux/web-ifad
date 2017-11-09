@@ -15,10 +15,10 @@
         <title>Resposta Questionário</title>
         <style>
             .confirmed {background: #7aba7b}
-            .naoMarcou{background-color: salmon}
+            .naoMarcou{background: rgba(250, 128, 114, 0.5)}
         </style>
     </h:head>
-    <ui:param name="temaSite" value="aristo"></ui:param>
+    <ui:param name="temaSite" value="afternoon"></ui:param>
     <h:body style="margin: 20px">
         <h:form id="frm">
              <p:growl autoUpdate="true" globalOnly="true" life="6000" escape="false" showDetail="true"></p:growl>
@@ -69,16 +69,38 @@
                         <p:column headerText="Responda conforme sua avaliação. Onde 0 totalmente inssatisfeito e 5 totalmente satisfeito." width="50%">
                             <h:outputText value="#{ahq.questao.descricao}" style=""></h:outputText>
                         </p:column>
-                        <p:column headerText="Marque:" width="300">
-                            <p:selectOneRadio value="#{ahq.resposta}" id="customRadio" layout="grid" columns="6">
+                        <p:column headerText="Marque:">
+                            <p:selectOneButton value="#{ahq.resposta}" rendered="#{ahq.questao.tipo_.name() == 'AVALIACAO0A5'}">
                                 <f:selectItem itemLabel="0" itemValue="0" />
                                 <f:selectItem itemLabel="1" itemValue="1" />
                                 <f:selectItem itemLabel="2" itemValue="2" />
                                 <f:selectItem itemLabel="3" itemValue="3" />
                                 <f:selectItem itemLabel="4" itemValue="4" />
                                 <f:selectItem itemLabel="5" itemValue="5" />
-                                <!--<p:ajax listener="#{questionarioBean.marcarResposta(ahq)}" global="false" update="@this, :frm:progressoBar" process="@form" onstart="$(loadsnake#{indiceLinha}).show();$(actionok#{indiceLinha}).hide();PF('buibotoes').show();" oncomplete="$(loadsnake#{indiceLinha}).hide();PF('buibotoes').hide();" onsuccess="$(actionok#{indiceLinha}).show();"></p:ajax>-->
-                            </p:selectOneRadio>
+                            </p:selectOneButton>
+                            <p:selectOneButton value="#{ahq.resposta}" rendered="#{ahq.questao.tipo_.name() == 'AVALIACAO0A3'}">
+                                <f:selectItem itemLabel="0" itemValue="0" />
+                                <f:selectItem itemLabel="1" itemValue="1" />
+                                <f:selectItem itemLabel="2" itemValue="2" />
+                                <f:selectItem itemLabel="3" itemValue="3" />
+                            </p:selectOneButton>
+                            <p:selectOneButton value="#{ahq.resposta}" rendered="#{ahq.questao.tipo_.name() == 'AVALIACAO0A2'}">
+                                <f:selectItem itemLabel="0" itemValue="0" />
+                                <f:selectItem itemLabel="1" itemValue="1" />
+                                <f:selectItem itemLabel="2" itemValue="2" />
+                            </p:selectOneButton>
+                            <p:selectOneButton value="#{ahq.resposta}" rendered="#{ahq.questao.tipo_.name() == 'AVALIACAO0A3CONCEITO'}">
+                                <f:selectItem itemLabel="RUIM" itemValue="0" />
+                                <f:selectItem itemLabel="REGULAR" itemValue="1" />
+                                <f:selectItem itemLabel="BOM" itemValue="2" />
+                                <f:selectItem itemLabel="ÓTIMO" itemValue="3" />
+                            </p:selectOneButton>
+                            <p:selectOneButton value="#{ahq.resposta}" rendered="#{ahq.questao.tipo_.name() == 'AVALIACAO0A2CONCEITO'}">
+                                <f:selectItem itemLabel="RUIM" itemValue="0" />
+                                <f:selectItem itemLabel="REGULAR" itemValue="1" />
+                                <f:selectItem itemLabel="ÓTIMO" itemValue="2" />
+                            </p:selectOneButton>
+                            <p:inputTextarea value="#{ahq.resposta}" rendered="#{ahq.questao.tipo_.name() == 'TEXTO'}" autoResize="false" style="width: 100%; max-width: 100%"></p:inputTextarea>
                             <!--<p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="0"></p:radioButton>-->
                         </p:column>
 <!--                        <p:column headerText="1"><p:radioButton for="frm:resultSet:#{indiceLinha}:customRadio" itemIndex="1"></p:radioButton></p:column>
