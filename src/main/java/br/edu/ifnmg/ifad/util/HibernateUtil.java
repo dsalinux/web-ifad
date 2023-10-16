@@ -24,12 +24,12 @@ public class HibernateUtil {
     }
     
     public static Session getSession(){
-//        if(session == null){
-//            session = getSessionFactory().openSession();
-//        } else if(!session.isOpen()){
-//            session = sessionFactory.openSession();
-//        }
-        return sessionFactory.getCurrentSession();
+        if(session == null){
+            session = getSessionFactory().openSession();
+        } else if(!session.isOpen()){
+            session = sessionFactory.openSession();
+        }
+        return session;
     }
     
     public static SessionFactory getSessionFactory() {
